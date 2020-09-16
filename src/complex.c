@@ -6,20 +6,20 @@
 /*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 01:07:02 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/09/09 01:25:51 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/09/11 19:05:38 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_compl	init_complex(double re, double im)
-{
-    t_compl	complex;
+// t_compl	init_complex(double re, double im)
+// {
+//     t_compl	complex;
     
-    complex.re = re;
-    complex.im = im;
-    return (complex);
-}
+//     complex.re = re;
+//     complex.im = im;
+//     return (complex);
+// }
 
 inline t_compl	sum_complex(t_compl c1, t_compl c2)
 {

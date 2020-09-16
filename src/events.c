@@ -6,7 +6,7 @@
 /*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 23:23:07 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/09/09 01:02:08 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/09/13 23:47:39 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ static int	mouse_press(int button, int x, int y, void *param)
 	t_cont *c;
 
 	c = param;
+	if (button == 4)
+		c->r *= 19.0 / 20.0;
+	else if (button == 5)
+		c->r /= 19.0 / 20.0;
+	if (button == 5 || button == 4)
+	{
+		c->shift[0] += (((double)x/WIDTH - 0.5) * (c->r >= 0 ? 1 : -1)) / (c->r); //((double)x/WIDTH - 0.5) > 0 ? (-c->r) / 20 : c->r / 20;
+		c->shift[1] += (((double)y/HEIGHT - 0.5) * (c->r >= 0 ? -1 : 1)) / (c->r);//((double)y/HEIGHT - 0.5) > 0 ? (-c->r) / 20 : c->r / 20;
+		stupid_fun(c->img, (c->r), c->shift);
+		mlx_clear_window(c->mlx_ptr, c->mlx_win);
+		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+	}
 	return (1);
 }
 

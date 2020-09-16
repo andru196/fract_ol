@@ -6,13 +6,14 @@
 #    By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/09/09 01:24:53 by sfalia-f         ###   ########.fr        #
+#    Updated: 2020/09/13 23:15:43 by sfalia-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	fractol
 DIR	=				./src/
 FILES	=			main.c\
+					test.c\
 					image.c\
 					events.c\
 					complex.c\
@@ -21,7 +22,7 @@ FILES	=			main.c\
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang
-FLAGS			=	-g
+FLAGS			=	-O -O3 -O2
 LIBRARY			=	./libft/
 LIBFT			=	$(LIBRARY)libft.a
 HEADERS			=	include/ $(LIBRARY)includes

@@ -6,7 +6,7 @@
 /*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/09/09 01:26:27 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/09/12 01:54:08 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,44 +26,11 @@ typedef struct s_line	t_line;
 typedef struct s_point	t_point;
 typedef unsigned char	byte;
 
-struct	s_point
-{
-	double				x;
-	double				y;
-	double				z;
-	int					origx;
-	int					origy;
-	int					origz;
-	int					color;
-	t_point				*next;
-};
-
-struct					s_line
-{
-	t_point				*p1;
-	t_point				*p2;
-	t_line				*next;
-};
-
-typedef struct			s_round
-{
-	t_point				*p;
-	int					raduis;
-	int					color;
-}						t_round;
-
-typedef struct			s_cont
-{
-	void				*mlx_ptr;
-	void				*mlx_win;
-	int					mouse_click[2];
-	int					is_move;
-}						t_cont;
 
 typedef struct			s_compl
 {
-	double				re;
-	double				im;
+	double			re;
+	double			im;
 }						t_compl;
 
 typedef struct			s_img
@@ -77,17 +44,29 @@ typedef struct			s_img
 	int					height;
 } 						t_img;
 
+typedef struct			s_cont
+{
+	void				*mlx_ptr;
+	void				*mlx_win;
+	int					mouse_click[2];
+	double				shift[2];
+	double				r;
+	int					is_move;
+	t_img				*img;
+}						t_cont;
+
 
 t_img					*new_image(void *mlx_ptr, int width, int height);
 void					configure_events(t_cont *c);
 int 					key_press(int keycode, void *param);
 void					free_cont(t_cont *c);
 
-t_compl					init_complex(double re, double im);
+//t_compl					init_complex(double re, double im);
 inline t_compl			sum_complex(t_compl c1, t_compl c2);
 inline static t_compl	mult_complex(t_compl c1, t_compl c2);
 t_compl					pow_complex(t_compl c1, unsigned i);
 
+void					stupid_fun(t_img *img, double r, double shift[2]);
 
 
 #endif
