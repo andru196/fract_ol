@@ -12,23 +12,48 @@
 
 #include "fractol.h"
 
+static void	lr_mouse_press(int button, int x, int y, t_cont *c)
+{
+	long double mult;
+
+	mult = button == 1 ? 1.0L / 3 :  3;
+	if (button == 1)
+	{
+		c->shift[0] += 4*((double)x/WIDTH - 0.5) ; 
+		c->shift[1] += -4*((double)y/HEIGHT - 0.5) ;
+	}
+	c->shift[0] /= mult;
+	c->shift[1] /= mult;
+	c->r *= mult;
+	stupid_fun(c->img, (c->r), c->shift);
+	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+}
+
 static int	mouse_press(int button, int x, int y, void *param)
 {
-	t_cont *c;
+	t_cont		*c;
+	long double mult;
+	static int	falg = 1;
 
-	c = param;
-	if (button == 4)
-		c->r *= 19.0 / 20.0;
-	else if (button == 5)
-		c->r /= 19.0 / 20.0;
+	falg = button == 2 ? !falg : falg;
 	if (button == 5 || button == 4)
 	{
-		c->shift[0] += (((double)x/WIDTH - 0.5) * (c->r >= 0 ? 1 : -1)) / (c->r); //((double)x/WIDTH - 0.5) > 0 ? (-c->r) / 20 : c->r / 20;
-		c->shift[1] += (((double)y/HEIGHT - 0.5) * (c->r >= 0 ? -1 : 1)) / (c->r);//((double)y/HEIGHT - 0.5) > 0 ? (-c->r) / 20 : c->r / 20;
+		c = param;
+		mult = button == 4 ? 15.0 / 20.0 :  20.0 / 15.0;
+		if (falg && button == 4)
+		{
+			c->shift[0] += ((double)x/WIDTH - 0.5) * 4;
+			c->shift[1] += -((double)y/HEIGHT - 0.5) * 4;
+		}
+		c->shift[0] /= mult;
+		c->shift[1] /= mult;
+		c->r *= mult;
 		stupid_fun(c->img, (c->r), c->shift);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}
+	else if (button == 1 || button == 3)
+		lr_mouse_press(button, x, y, param);
 	return (1);
 }
 

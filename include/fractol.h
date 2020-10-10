@@ -17,11 +17,11 @@
 # include <math.h>
 # include <fcntl.h>
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 300
+# define HEIGHT 300
 # define HYPOTENUSE 1415
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
-
+# define DELTA 1.5L
 typedef struct s_line	t_line;
 typedef struct s_point	t_point;
 typedef unsigned char	byte;

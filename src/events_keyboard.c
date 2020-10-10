@@ -27,17 +27,14 @@ int 		key_press(int keycode, void *param)
 	c = (t_cont*)param;
 	if (113 == keycode || keycode == 65307) //65361
 		ext(c);
-	if (keycode == 65361) c->shift[0]-= c->r / 2;
-	if (keycode == 65362) c->shift[1]+= c->r / 2;
-	if (keycode == 65363) c->shift[0]+= c->r / 2;
-	if (keycode == 65364) c->shift[1]-= c->r / 2;
+	if (keycode == 65361) c->shift[0] -= DELTA;
+	if (keycode == 65362) c->shift[1] += DELTA;
+	if (keycode == 65363) c->shift[0] += DELTA;
+	if (keycode == 65364) c->shift[1] -= DELTA;
 	if (keycode >= 65361 && keycode <= 65364)
 	{
 		t_img *img = new_image(c->mlx_ptr, WIDTH, HEIGHT);
 		stupid_fun(img, c->r, c->shift);
-		
-		mlx_clear_window(c->mlx_ptr, c->mlx_win);
-		mlx_destroy_image(c->mlx_ptr, c->img->img_ptr);
 		c->img = img;
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}

@@ -41,8 +41,8 @@ void	stupid_fun(t_img *img, double r, double shift[2])
 	factor.re = (max.re - min.re) / (width - 1);
 	factor.im = (max.im - min.im) / (height- 1);
 
-	max_iteration = 100;
-
+	max_iteration = 70 - 150 * log10(r);
+	printf("maxit:%d\n", max_iteration);
 	y = 0;
 	while (y < height)
 	{
@@ -76,5 +76,5 @@ void	stupid_fun(t_img *img, double r, double shift[2])
 		}
 		y++;
 	}
-	printf("%lf %lf %lf\n", r, shift[0], shift[1]);
+	printf("%lf %lf %lf log10(r):%lf\n", r, shift[0], shift[1], log10(r) * 150.0);
 }

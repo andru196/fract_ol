@@ -22,7 +22,7 @@ FILES	=			main.c\
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang
-FLAGS			=	-O -O3 -O2
+FLAGS			=	-g#-O -O3 -O2
 LIBRARY			=	./libft/
 LIBFT			=	$(LIBRARY)libft.a
 HEADERS			=	include/ $(LIBRARY)includes
@@ -32,7 +32,7 @@ LIBS = -lGL -lXext -lX11 -lm
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -std=c11 $(FLAGS) -o $(NAME) $(OBJ) -L $(LIBRARY) -lft -L $(MINILIBDIR) -lmlx $(LIBS)
+	$(CC)  $(FLAGS) -o $(NAME) $(OBJ) -L $(LIBRARY) -lft -L $(MINILIBDIR) -lmlx  $(LIBS)
 
 $(LIBFT):
 	make -C $(LIBRARY)
