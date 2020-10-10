@@ -25,7 +25,7 @@ static void	lr_mouse_press(int button, int x, int y, t_cont *c)
 	c->shift[0] /= mult;
 	c->shift[1] /= mult;
 	c->r *= mult;
-	stupid_fun(c->img, (c->r), c->shift);
+	stupid_fun(c->img, (c->r), c->shift, c->maxiter);
 	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 }
 
@@ -48,7 +48,7 @@ static int	mouse_press(int button, int x, int y, void *param)
 		c->shift[0] /= mult;
 		c->shift[1] /= mult;
 		c->r *= mult;
-		stupid_fun(c->img, (c->r), c->shift);
+		stupid_fun(c->img, (c->r), c->shift, c->maxiter);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}

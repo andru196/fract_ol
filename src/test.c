@@ -21,10 +21,10 @@ inline static t_compl	init_complex(double re, double im)
     return (complex);
 }
 
-void	stupid_fun(t_img *img, double r, double shift[2])
+void	stupid_fun(t_img *img, double r, double shift[2], int max_iteration)
 {
 	t_compl min, max, c, factor, z;
-	int max_iteration, red, green, blue, iteration, x, y;
+	int red, green, blue, iteration, x, y;
 	long double t;
 
 	int width, height;
@@ -41,7 +41,7 @@ void	stupid_fun(t_img *img, double r, double shift[2])
 	factor.re = (max.re - min.re) / (width - 1);
 	factor.im = (max.im - min.im) / (height- 1);
 
-	max_iteration = 70 - 150 * log10(r);
+	max_iteration += 200 * fabs(log(r));
 	printf("maxit:%d\n", max_iteration);
 	y = 0;
 	while (y < height)
@@ -57,7 +57,7 @@ void	stupid_fun(t_img *img, double r, double shift[2])
 			{
 				z = init_complex(
 					z.re * z.re - z.im * z.im + c.re,
-					2.0 * z.re * z.im + c.im);
+					2.0L * z.re * z.im + c.im);
 				iteration++;
 			}
 			t = (long double)iteration / (long double)max_iteration;
@@ -76,5 +76,5 @@ void	stupid_fun(t_img *img, double r, double shift[2])
 		}
 		y++;
 	}
-	printf("%lf %lf %lf log10(r):%lf\n", r, shift[0], shift[1], log10(r) * 150.0);
+	printf("%lf %lf %lf\n", r, shift[0], shift[1]);
 }

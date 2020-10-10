@@ -27,9 +27,10 @@ int		main(int argc, char **argv)
 	
 		img = new_image(cont.mlx_ptr, WIDTH, HEIGHT);
 		cont.img = img;
+		cont.maxiter = 10;
 		cont.shift[1] = 0.0;
 		cont.shift[0] = 0.0;
-		stupid_fun(img, (cont.r =  2.0), cont.shift);
+		stupid_fun(img, (cont.r =  2.0), cont.shift, cont.maxiter);
 		mlx_put_image_to_window(cont.mlx_ptr, cont.mlx_win, img->img_ptr, 0, 0);
 
 	}

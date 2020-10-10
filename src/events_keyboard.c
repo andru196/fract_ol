@@ -31,10 +31,14 @@ int 		key_press(int keycode, void *param)
 	if (keycode == 65362) c->shift[1] += DELTA;
 	if (keycode == 65363) c->shift[0] += DELTA;
 	if (keycode == 65364) c->shift[1] -= DELTA;
-	if (keycode >= 65361 && keycode <= 65364)
+	if (keycode == 65451 || keycode == 61) c->maxiter += 1000;
+	if (keycode == 65453 || keycode == 45) c->maxiter -= 1000;
+
+	if ((keycode >= 65361 && keycode <= 65364)
+		|| keycode == 65453 || keycode == 65451)
 	{
 		t_img *img = new_image(c->mlx_ptr, WIDTH, HEIGHT);
-		stupid_fun(img, c->r, c->shift);
+		stupid_fun(img, c->r, c->shift, c->maxiter);
 		c->img = img;
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}
