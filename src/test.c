@@ -62,19 +62,14 @@ void	stupid_fun(t_img *img, double r, double shift[2], int max_iteration)
 			}
 			t = (long double)iteration / (long double)max_iteration;
 			int color;
-			//if (iteration != max_iteration)
-			//{
-				int red =  (int)(9 * (1 - t) * t*t*t * 255) << 16;
-				int green = (int)(15 * (1 - t)* (1 - t) * t*t * 255) << 8;
-				int blue = (int)(8.5 * (1 - t)*(1 - t)*(1 - t) * t * 255);
-				color = red | green | blue;
-			//}
-			//else
-			//	color = 0;
+			int red =  (int)(9 * (1 - t) * t * t * t * 255) << 16;
+			int green = (int)(15 * (1 - t) * (1 - t) * t*t * 255) << 8;
+			int blue = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+			color = red | green | blue;
 			*data++ = (color);
 			x++;
 		}
 		y++;
 	}
-	printf("%lf %lf %lf\n", r, shift[0], shift[1]);
+	printf("r:%.1000lf\ns:%.1000lf\ns:%.1000lf\n\n", r, shift[0], shift[1]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/09/12 01:54:08 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/23 01:15:21 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
+# include <CL/cl.h>
 
-# define WIDTH 300
-# define HEIGHT 300
+# define WIDTH 1024
+# define HEIGHT 1024
 # define HYPOTENUSE 1415
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
 typedef struct s_line	t_line;
 typedef struct s_point	t_point;
 typedef unsigned char	byte;
+typedef unsigned long long t_llu;
 
 
 typedef struct			s_compl
@@ -56,6 +58,34 @@ typedef struct			s_cont
 	t_img				*img;
 }						t_cont;
 
+typedef struct	s_platform
+{
+	char		*profile;
+	char		*version;
+	char		*vendor;
+	char		*extensions;
+	char		*name;
+}				t_platform_info;
+
+typedef struct	s_device
+{
+	t_llu	type;
+	t_llu	vendor_id;
+	t_llu	max_compute_units;
+	t_llu	max_work_item_dimensions;
+	t_llu	max_work_group_size;
+	size_t	*max_work_item_size;
+	cl_uint	address_bits;
+	t_llu	local_mem_size;
+	t_llu	global_mem_size;
+	char	available;
+	char	*name;
+	char	*vendor;
+	char	*version;
+	char	*profile;
+	char	*extensions;
+	char	*platform;
+}			t_device_info;
 
 t_img					*new_image(void *mlx_ptr, int width, int height);
 void					configure_events(t_cont *c);

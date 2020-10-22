@@ -16,7 +16,7 @@ static void	lr_mouse_press(int button, int x, int y, t_cont *c)
 {
 	long double mult;
 
-	mult = button == 1 ? 1.0L / 3 :  3;
+	mult = button == 1 ? 1.0L / 3.0 :  3.0;
 	if (button == 1)
 	{
 		c->shift[0] += 4*((double)x/WIDTH - 0.5) ; 

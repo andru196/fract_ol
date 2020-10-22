@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   size_revision.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycorrupt <ycorrupt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/05 16:14:28 by ycorrupt          #+#    #+#             */
-/*   Updated: 2019/06/26 18:56:37 by ycorrupt         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:17:56 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void			size(short int s[5], char t)
 				ft_bzero((void *)s, i * 2);
 		ft_swap(&s[2], &s[3]);
 	}
-	else if (ft_charinstr(FLOATS, t))
+	else if (ft_charinstr(doubleS, t))
 	{
 		if (s[4])
 			ft_bzero((void *)s, 8);

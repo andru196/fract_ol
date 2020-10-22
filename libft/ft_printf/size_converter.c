@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   size_converter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 17:43:41 by sfalia-f          #+#    #+#             */
-/*   Updated: 2019/07/02 17:52:13 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:17:56 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int					convert_param(t_param *lst, va_list factor, t_list **ml)
 		}
 		else if (ft_charinstr("cspq", lst->type))
 			convert_csp(lst, factor);
-		else if (ft_charinstr(FLOATS, lst->type))
+		else if (ft_charinstr(doubleS, lst->type))
 			convert_f(lst, factor, ml);
 		lst = lst->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycorrupt <ycorrupt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/21 17:42:32 by sfalia-f          #+#    #+#             */
-/*   Updated: 2019/06/26 23:43:10 by ycorrupt         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:17:56 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void			type_parser(t_param *lst, t_list **ml)
 		makestr_oux(lst, ml);
 		precision_dioux(lst, ml);
 	}
-	else if (ft_charinstr(FLOATS, lst->type))
+	else if (ft_charinstr(doubleS, lst->type))
 		makestr_f(lst, ml);
 	else
 	{

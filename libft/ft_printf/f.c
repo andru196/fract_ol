@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fF.c                                               :+:      :+:    :+:   */
+/*   f.c                                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycorrupt <ycorrupt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 21:24:12 by sfalia-f          #+#    #+#             */
-/*   Updated: 2019/06/26 18:18:58 by ycorrupt         ###   ########.fr       */
+/*   Updated: 2020/10/21 01:17:56 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check_exception(char **l_str, char *str, t_list **ml)
 	return (0);
 }
 
-static int	check_float(t_param *lst, t_list **ml)
+static int	check_double(t_param *lst, t_list **ml)
 {
 	char	*str;
 	char	*cpy;
@@ -84,7 +84,7 @@ int			pr_f(t_param *lst, t_list **ml)
 	del_win(ml, lst->str);
 	lst->str = sm(ft_strjoin(str, str2), ml, 0);
 	del_lst(ml, 3, 0);
-	return (check_float(lst, ml));
+	return (check_double(lst, ml));
 }
 
 static int	pr_e(t_param *lst, t_list **ml)
@@ -111,7 +111,7 @@ static int	pr_e(t_param *lst, t_list **ml)
 	str = sm(ft_strjoin(lst->str, str1), ml, 0);
 	del_lst(ml, 3, 0);
 	lst->str = str;
-	check_float(lst, ml);
+	check_double(lst, ml);
 	return (0);
 }
 
