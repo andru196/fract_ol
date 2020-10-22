@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:42:30 by andru             #+#    #+#             */
-/*   Updated: 2020/10/23 01:13:52 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/23 01:24:38 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,8 @@ void    try_mult(int maxiter, double fromX, double fromY, double toX, double toY
 
 	size_t global[] = {32, 32};
 	size_t local[] = {(size_t) WIDTH, (size_t) HEIGHT};
-	for (int d = 0; d < 2; d++) {
-        //global[d] = (global[d] + local[d] - 1) / local[d] * local[d];
-    }
+	
+	
 	int nums[size];
 	bzero(nums, size * sizeof(int));
 

@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/23 01:15:21 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/23 01:16:58 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 # define WIDTH 1024
 # define HEIGHT 1024
-# define HYPOTENUSE 1415
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
 typedef struct s_line	t_line;

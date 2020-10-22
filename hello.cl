@@ -1,8 +1,8 @@
 __kernel void mandelbrotProcess(__global unsigned int* iterations,
                                  int width, int height,
                                  double fromX, double fromY, double toX, double toY, int max_iteration) {
-    int px = get_global_id(0);
-    int py = get_global_id(1);
+    int px = get_global_id(0) - 32;
+    int py = get_global_id(1) - 32;
     if (px >= width || py >= height) return;
 
     double x0 = fromX + px * (toX - fromX) / width;
