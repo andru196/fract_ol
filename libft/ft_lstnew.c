@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ycorrupt <ycorrupt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:09:52 by ycorrupt          #+#    #+#             */
-/*   Updated: 2019/02/22 17:59:23 by ycorrupt         ###   ########.fr       */
+/*   Updated: 2020/10/25 20:58:38 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,17 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 		}
 	}
 	return (result);
+}
+
+size_t		ft_lstcontsize(t_list *frst)
+{
+	size_t rez;
+
+	rez = 0;
+	while (frst)
+	{
+		rez += frst->content_size;
+		frst = frst->next; 
+	}
+	return (rez);
 }

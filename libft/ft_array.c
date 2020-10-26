@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_array.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 16:17:05 by sfalia-f          #+#    #+#             */
-/*   Updated: 2019/10/19 22:35:20 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/25 14:38:44 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void	*ft_array_free(void *ary)
 		free(ary_tmp->ptr);
 	free(ary_tmp);
 	return (0);
+}
+
+void	**get_ptr_from_array(t_array *arr)
+{
+	void	**ptr;
+
+	ptr = malloc(sizeof(void*) * arr->len);
+	memcpy(ptr, arr->ptr, sizeof(void*) * arr->len);
+	ft_array_free(arr);
+	return (ptr);
 }

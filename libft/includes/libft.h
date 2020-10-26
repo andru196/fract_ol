@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 13:09:54 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/08/25 21:41:36 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/27 00:26:02 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <fcntl.h>
 
 # define SIZE(type, n) sizeof(type) * (n)
 # define ULL	unsigned long long
@@ -122,6 +123,10 @@ void			ft_swap_points(void **a, void **b);
 int				ft_mod(long int num);
 int				ft_isspace(int c);
 long long int	ft_atoix(char *str);
-
+void			**get_ptr_from_array(t_array *arr);
+void			ft_lstdel_free(t_list **alst);
+size_t			ft_lstcontsize(t_list *frst);
+int				read_all_text(const char *path, char **ret);
+int				read_all_lines(const char *path, char ***ret, size_t *lines_num);
 
 #endif
