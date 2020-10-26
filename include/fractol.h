@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/23 01:16:58 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/27 00:49:13 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
-# include <CL/cl.h>
-
+# include "cl_module.h"
 # define WIDTH 1024
 # define HEIGHT 1024
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
-typedef struct s_line	t_line;
-typedef struct s_point	t_point;
-typedef unsigned char	byte;
-typedef unsigned long long t_llu;
+typedef struct s_line		t_line;
+typedef struct s_point		t_point;
+typedef unsigned char		byte;
+typedef unsigned long long	t_llu;
+typedef struct s_fractol	t_fract;
 
 
 typedef struct			s_compl
@@ -55,36 +55,19 @@ typedef struct			s_cont
 	int					is_move;
 	int					maxiter;
 	t_img				*img;
+	t_clcomponents		clcomponets;
 }						t_cont;
 
-typedef struct	s_platform
-{
-	char		*profile;
-	char		*version;
-	char		*vendor;
-	char		*extensions;
-	char		*name;
-}				t_platform_info;
 
-typedef struct	s_device
+typedef struct			s_fractol
 {
-	t_llu	type;
-	t_llu	vendor_id;
-	t_llu	max_compute_units;
-	t_llu	max_work_item_dimensions;
-	t_llu	max_work_group_size;
-	size_t	*max_work_item_size;
-	cl_uint	address_bits;
-	t_llu	local_mem_size;
-	t_llu	global_mem_size;
-	char	available;
-	char	*name;
-	char	*vendor;
-	char	*version;
-	char	*profile;
-	char	*extensions;
-	char	*platform;
-}			t_device_info;
+	double				max_re;
+	double				max_im;
+	double				min_re;
+	double				min_im;
+	unsigned			iteration;
+};
+
 
 t_img					*new_image(void *mlx_ptr, int width, int height);
 void					configure_events(t_cont *c);

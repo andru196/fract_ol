@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:42:30 by andru             #+#    #+#             */
-/*   Updated: 2020/10/23 01:24:38 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/27 01:18:18 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,16 @@
 
 void    try_mult(int maxiter, double fromX, double fromY, double toX, double toY, byte *img, size_t size)
 {
-	cl_device_id device_id = NULL;
-	cl_context context = NULL;
-	cl_command_queue command_queue = NULL;
-	cl_mem memobj = NULL;
-	cl_program program = NULL;
-	cl_kernel kernel = NULL;
-	cl_platform_id platform_id = NULL;
-	cl_uint ret_num_devices;
-	cl_uint ret_num_platforms;
-	cl_int ret;
-	
-	char string[MEM_SIZE];
+	cl_device_id		device_id = NULL;
+	cl_context			context = NULL;
+	cl_command_queue	command_queue = NULL;
+	cl_program			program = NULL;
+	cl_kernel			kernel = NULL;
+	cl_platform_id		platform_id = NULL;
+	cl_uint				ret_num_devices;
+	cl_uint				ret_num_platforms;
+	cl_int				ret;
+	char				string[MEM_SIZE];
 	
 	FILE *fp;
 	char fileName[] = "./hello.cl";
@@ -140,23 +138,18 @@ void    try_mult(int maxiter, double fromX, double fromY, double toX, double toY
 
 void	stupid_fun(t_img *img, double r, double shift[2], int max_iteration)
 {
-	t_compl min, max, c, factor, z;
-	long double t;
+	t_fract	fractal;
+	int		width;
+	int		height;
 
-	int width, height;
 	width = img->width;
 	height = img->height;
-
-	int *data = img->data;
-	
-	min.re = (-2.0L + shift[0]) * r;
-	max.re = (2.0L + shift[0]) * r;
-	min.im = (-2.0L + shift[1]) * r;
-	max.im = (min.im + (max.re - min.re) * height / width);
-	
-	factor.re = (max.re - min.re) / (width - 1);
-	factor.im = (max.im - min.im) / (height- 1);
-
+	fractal.min_re = (-2.0L + shift[0]) * r;
+	fractal.max_re = (2.0L + shift[0]) * r;
+	fractal.min_im = (-2.0L + shift[1]) * r;
+	fractal.max_im = (fractal.min_im + (fractal.max_re - fractal.min_re)
+		* height / width);
 	max_iteration += 200 * fabs(log(r));
-	try_mult(max_iteration, min.re, min.im, max.re,  max.im, img->data, img->height * img->width);
+	try_mult(max_iteration, fractal.min_re, fractal.min_im, fractal.max_re,
+		fractal.max_im, img->data, img->height * img->width);
 }
