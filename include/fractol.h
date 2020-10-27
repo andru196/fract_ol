@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/28 01:05:05 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/28 01:39:54 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ struct					s_fractol
 	double				max_im;
 	double				min_re;
 	double				min_im;
+	double				factor_re;
+	double				factor_im;
 	unsigned			iteration;
 };
 

@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/10/28 01:24:58 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/28 02:00:29 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,12 @@ int			cl_read_img(t_clcomponents *comp, t_img *img, int maxiter)
 	size_t const	local[] = {(size_t) WIDTH, (size_t) HEIGHT};
 	int				nums[HEIGHT * WIDTH];
 
-	//bzero(nums, HEIGHT * WIDTH * sizeof(int));
 	ret = clEnqueueNDRangeKernel(comp->command_queue, comp->kernel, 2, global,
 												local, NULL, 0, NULL, NULL);
 	ret = clEnqueueReadBuffer(comp->command_queue, comp->buffer, CL_TRUE, 0,
-							WIDTH * HEIGHT * sizeof(int), nums, 0, NULL, NULL);
-	if (ret >= 0)
-		setcolor(nums, maxiter, img->data);
+							WIDTH * HEIGHT * sizeof(int), img->data, 0, NULL, NULL);
+	// if (ret >= 0)
+		//setcolor(nums, maxiter, img->data);
 	return (!ret);
 }
 
@@ -78,6 +77,8 @@ int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int maxiter)
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_re);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_im);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &maxiter);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor_re);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor_im);
 	return (!ret);
 }
 
@@ -91,12 +92,11 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename)
 		ret = clGetPlatformIDs(1, &comp->platform_id, &comp->ret_num_platforms);
 		ret = clGetDeviceIDs(comp->platform_id, CL_DEVICE_TYPE_GPU, 1, &comp->device_id, &comp->ret_num_devices);
 
-
 		comp->context = clCreateContext(NULL, 1, &comp->device_id, NULL, NULL, &ret);
 		comp->command_queue = clCreateCommandQueueWithProperties(comp->context, comp->device_id, 0, &ret);
 		source_size = ft_strlen(comp->program_src);
 		comp->program = clCreateProgramWithSource(comp->context, 1, (const char **)&comp->program_src,
-											(const size_t *)&source_size, &ret);
+								(const size_t *)&source_size, &ret);
 		ret = clBuildProgram(comp->program, 1, &comp->device_id, NULL, NULL, NULL);
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////

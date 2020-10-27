@@ -1,15 +1,9 @@
 __kernel void mandelbrotProcess(__global unsigned int* iterations,
                                  int width, int height,
-                                 double fromX, double fromY, double toX, double toY, int max_iteration) {
+                                 double fromX, double fromY, double toX, double toY, int max_iteration, double fy, double fx) {
     int px = get_global_id(0) - 32;
     int py = get_global_id(1) - 32;
     if (px >= width || py >= height) return;
-
-    double x0 = fromX + px * (toX - fromX) / width;
-    double y0 = fromY + py * (toY - fromY) / height;
-
-    double fx = (toX - fromX) / (width - 1);
-    double fy = (toY - fromY) / (height - 1);
 
     double cy = toY - py * fy;
     double cx = fromX + px * fx;
@@ -25,5 +19,12 @@ __kernel void mandelbrotProcess(__global unsigned int* iterations,
             break;
         }
     }
-    iterations[width * py + px] = iteration;
+    double it = iteration;
+    double t = it / max_iteration;
+    int r =  (int)(9 * (1 - t) * t * t * t * 255) << 16;
+    int g = (int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8;
+    int b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+    int c = r | g | b;
+
+    iterations[width * py + px] = c;
 }
