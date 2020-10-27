@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 23:23:07 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/09/13 23:47:39 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/28 01:18:20 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	lr_mouse_press(int button, int x, int y, t_cont *c)
 	c->shift[0] /= mult;
 	c->shift[1] /= mult;
 	c->r *= mult;
-	stupid_fun(c->img, (c->r), c->shift, c->maxiter);
+	stupid_fun(c, (c->r), c->shift, c->maxiter);
 	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 }
 
@@ -48,7 +48,7 @@ static int	mouse_press(int button, int x, int y, void *param)
 		c->shift[0] /= mult;
 		c->shift[1] /= mult;
 		c->r *= mult;
-		stupid_fun(c->img, (c->r), c->shift, c->maxiter);
+		stupid_fun(c, (c->r), c->shift, c->maxiter);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}

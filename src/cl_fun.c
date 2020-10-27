@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/10/27 01:59:57 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/28 01:24:58 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	cl_release_all(t_clcomponents *comp)
 	ret = clReleaseMemObject(comp->buffer);
 	ret = clReleaseCommandQueue(comp->command_queue);
 	ret = clReleaseContext(comp->context);
+	if (ret >= 0)
+		comp->is_connected = 0;
 	return (ret);
 }
 
@@ -57,7 +59,7 @@ int			cl_read_img(t_clcomponents *comp, t_img *img, int maxiter)
 							WIDTH * HEIGHT * sizeof(int), nums, 0, NULL, NULL);
 	if (ret >= 0)
 		setcolor(nums, maxiter, img->data);
-	return (ret);
+	return (!ret);
 }
 
 int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int maxiter)
@@ -74,9 +76,9 @@ int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int maxiter)
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min_re);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min_im);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_re);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_re);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_im);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &maxiter);
-	return (ret);
+	return (!ret);
 }
 
 int			cl_try_init_connect(t_clcomponents *comp, char *filename)
@@ -91,7 +93,7 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename)
 
 
 		comp->context = clCreateContext(NULL, 1, &comp->device_id, NULL, NULL, &ret);
-		comp->command_queue = clCreateCommandQueue(comp->context, comp->device_id, 0, &ret);
+		comp->command_queue = clCreateCommandQueueWithProperties(comp->context, comp->device_id, 0, &ret);
 		source_size = ft_strlen(comp->program_src);
 		comp->program = clCreateProgramWithSource(comp->context, 1, (const char **)&comp->program_src,
 											(const size_t *)&source_size, &ret);
@@ -99,6 +101,8 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename)
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////
 		comp->kernel = clCreateKernel(comp->program, "mandelbrotProcess", &ret);
+		if (ret >= 0)
+			comp->is_connected = 1;
 		////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////
 	}

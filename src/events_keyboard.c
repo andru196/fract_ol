@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_keyboard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/09/13 23:32:34 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/28 01:29:06 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int 		key_press(int keycode, void *param)
 	if ((keycode >= 65361 && keycode <= 65364)
 		|| keycode == 65453 || keycode == 65451)
 	{
-		t_img *img = new_image(c->mlx_ptr, WIDTH, HEIGHT);
-		stupid_fun(img, c->r, c->shift, c->maxiter);
-		c->img = img;
+		stupid_fun(c, c->r, c->shift, c->maxiter);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}
 	return (1);

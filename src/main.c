@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 23:58:11 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/27 00:53:12 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/28 00:47:40 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		main(int argc, char **argv)
 		cont.shift[1] = 0.0;
 		cont.shift[0] = 0.0;
 		ft_bzero(&cont.clcomponets, sizeof(t_clcomponents));
-		stupid_fun(img, (cont.r =  2.0), cont.shift, cont.maxiter);
+		stupid_fun(&cont, (cont.r =  2.0), cont.shift, cont.maxiter);
 		mlx_put_image_to_window(cont.mlx_ptr, cont.mlx_win, img->img_ptr, 0, 0);
 	}
 	mlx_loop(cont.mlx_ptr);
