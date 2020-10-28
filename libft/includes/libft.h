@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 13:09:54 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/27 00:26:02 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 01:01:47 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ void			ft_lstdel_free(t_list **alst);
 size_t			ft_lstcontsize(t_list *frst);
 int				read_all_text(const char *path, char **ret);
 int				read_all_lines(const char *path, char ***ret, size_t *lines_num);
+size_t			ft_acontainstr(char *str, char **arr, size_t arrlenth);
 
 #endif

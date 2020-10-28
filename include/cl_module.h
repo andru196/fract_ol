@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 00:28:52 by andru             #+#    #+#             */
-/*   Updated: 2020/10/28 01:03:35 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 01:29:23 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define CL_PARAMETR_H
 # include <CL/cl.h>
 # include "fractol.h"
-
+# define MANDELBROT "mandelbrotProcess"
+# define JULIA "juliaProcess"
+# define BURNINGSHIP "burningShipProcess"
 typedef struct s_platform   	t_platform_info;
 typedef struct s_device     	t_device_info;
 typedef struct s_clcomponents	t_clcomponents;
@@ -66,7 +68,7 @@ struct							s_clcomponents
 
 int								cl_release_all(t_clcomponents *comp);
 int								cl_read_img(t_clcomponents *comp, t_img *img, int maxiter);
-int								cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int maxiter);
-int								cl_try_init_connect(t_clcomponents *comp, char *filename);
+int								cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int is_extra);
+int								cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set);
 
 #endif

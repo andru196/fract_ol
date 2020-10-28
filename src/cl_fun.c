@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/10/28 02:00:29 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 01:31:09 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,10 @@ int			cl_read_img(t_clcomponents *comp, t_img *img, int maxiter)
 												local, NULL, 0, NULL, NULL);
 	ret = clEnqueueReadBuffer(comp->command_queue, comp->buffer, CL_TRUE, 0,
 							WIDTH * HEIGHT * sizeof(int), img->data, 0, NULL, NULL);
-	// if (ret >= 0)
-		//setcolor(nums, maxiter, img->data);
 	return (!ret);
 }
 
-int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int maxiter)
+int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int is_extra)
 {
 	unsigned int i = 0;
 	cl_int ret;
@@ -76,13 +74,18 @@ int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int maxiter)
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min_im);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_re);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_im);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &maxiter);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &fract.iteration);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor_re);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor_im);
+	if (is_extra)
+	{
+		ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.k.re);
+		ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.k.im);	
+	}
 	return (!ret);
 }
 
-int			cl_try_init_connect(t_clcomponents *comp, char *filename)
+int			cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set)
 {
 	size_t	source_size;
 	cl_int	ret;
@@ -98,13 +101,14 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename)
 		comp->program = clCreateProgramWithSource(comp->context, 1, (const char **)&comp->program_src,
 								(const size_t *)&source_size, &ret);
 		ret = clBuildProgram(comp->program, 1, &comp->device_id, NULL, NULL, NULL);
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
-		comp->kernel = clCreateKernel(comp->program, "mandelbrotProcess", &ret);
+		if (set == mandelbrot_set)
+			comp->kernel = clCreateKernel(comp->program, MANDELBROT, &ret);
+		else if (set == julia_set)
+			comp->kernel = clCreateKernel(comp->program, JULIA, &ret);
+		else
+			comp->kernel = clCreateKernel(comp->program, BURNINGSHIP, &ret);
 		if (ret >= 0)
 			comp->is_connected = 1;
-		////////////////////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////////////////
 	}
 	return (ret);
 }

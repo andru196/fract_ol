@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 23:19:25 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/09/13 23:48:30 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/10/29 00:37:58 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,19 @@ inline static t_compl	init_complex(double re, double im)
     return (complex);
 }
 
-void	stupid_fun(t_img *img, double r, double shift[2], int max_iteration)
+void	stupid_fun(t_cont *cont, double r, double shift[2], int max_iteration)
 {
 	t_compl min, max, c, factor, z;
 	int red, green, blue, iteration, x, y;
 	long double t;
+	t_img *img;
 
+	img = cont->img;
 	int width, height;
 	width = img->width;
 	height = img->height;
 
-	int *data = img->data;
+	int *data = (int*)img->data;
 	
 	min.re = (-2.0L + shift[0]) * r;
 	max.re = (2.0L + shift[0]) * r;
@@ -42,7 +44,6 @@ void	stupid_fun(t_img *img, double r, double shift[2], int max_iteration)
 	factor.im = (max.im - min.im) / (height- 1);
 
 	max_iteration += 200 * fabs(log(r));
-	printf("maxit:%d\n", max_iteration);
 	y = 0;
 	while (y < height)
 	{
@@ -71,5 +72,4 @@ void	stupid_fun(t_img *img, double r, double shift[2], int max_iteration)
 		}
 		y++;
 	}
-	printf("r:%.1000lf\ns:%.1000lf\ns:%.1000lf\n\n", r, shift[0], shift[1]);
 }

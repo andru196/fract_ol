@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cont.c                                        :+:      :+:    :+:   */
+/*   ft_acontainstr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/09 01:04:41 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/28 23:19:29 by andru            ###   ########.fr       */
+/*   Created: 2020/10/29 00:50:39 by andru             #+#    #+#             */
+/*   Updated: 2020/10/29 01:01:35 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "libft.h"
 
-void	free_cont(t_cont *c)
+size_t	ft_acontainstr(char *str, char **arr, size_t arrlenth)
 {
-	t_point	*p;
-	t_point	*tmp;
+	size_t	i;
 
-	if (c)
-	{
-		if (c->mlx_win)
-			mlx_destroy_window(c->mlx_ptr, c->mlx_win);
-		if (c->mlx_ptr)
-			free(c->mlx_ptr);
-		cl_release_all(&c->clcomponets);
-	}
+	i = 0;
+	while (i < arrlenth)
+		if (!ft_strcmp(str, arr[i++]))
+			return (i);
+	return (0);
 }

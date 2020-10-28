@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/28 01:29:06 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 00:46:20 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int 		key_press(int keycode, void *param)
 	if (keycode == 65362) c->shift[1] += DELTA;
 	if (keycode == 65363) c->shift[0] += DELTA;
 	if (keycode == 65364) c->shift[1] -= DELTA;
-	if (keycode == 65451 || keycode == 61) c->maxiter += 1000;
-	if (keycode == 65453 || keycode == 45) c->maxiter -= 1000;
+	if (keycode == 65451 || keycode == 61) c->maxiter += DELTA_MAXITER;
+	if (keycode == 65453 || keycode == 45) c->maxiter -= DELTA_MAXITER;
 
 	if ((keycode >= 65361 && keycode <= 65364)
 		|| keycode == 65453 || keycode == 65451)

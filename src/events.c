@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 23:23:07 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/28 01:18:20 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 01:23:06 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,30 @@ static int	mouse_release(int button, int x, int y, void *param)
 	return (1);
 }
 
+inline static t_compl	init_complex(double re, double im)
+{
+    t_compl	complex;
+    
+    complex.re = re;
+    complex.im = im;
+    return (complex);
+}
+
 static int	mouse_move(int x, int y, void *param)
 {
 	t_cont	*c;
 	
 	c = param;
+	if (c->current_set == julia_set)
+	{
+		c->k = init_complex(
+			4 * ((double)x / WIDTH - 0.5),
+			4 * ((double)(HEIGHT - y) / HEIGHT - 0.5));
+		stupid_fun(c, (c->r), c->shift, 50);
+		mlx_clear_window(c->mlx_ptr, c->mlx_win);
+		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		return (0);
+	}
 	return (1);
 }
 

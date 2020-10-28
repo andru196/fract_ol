@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/28 01:39:54 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 01:24:33 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define HEIGHT 1024
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
+# define DELTA_MAXITER 100
 
 typedef struct s_cont		t_cont;
 typedef struct s_img		t_img;
@@ -29,8 +30,16 @@ typedef struct s_point		t_point;
 typedef unsigned char		byte;
 typedef unsigned long long	t_llu;
 typedef struct s_fractol	t_fract;
+typedef enum e_set			t_set;
 
 # include "cl_module.h"
+
+enum				e_set
+{
+	mandelbrot_set = 1,
+	julia_set = 2,
+	burningship_set = 3
+};
 
 struct					s_compl
 {
@@ -51,6 +60,7 @@ struct					s_img
 
 struct					s_cont
 {
+	t_set				current_set;
 	void				*mlx_ptr;
 	void				*mlx_win;
 	int					mouse_click[2];
@@ -59,6 +69,7 @@ struct					s_cont
 	int					is_move;
 	int					maxiter;
 	t_img				*img;
+	t_compl				k;
 	t_clcomponents		clcomponets;
 };
 
@@ -71,6 +82,7 @@ struct					s_fractol
 	double				min_im;
 	double				factor_re;
 	double				factor_im;
+	t_compl				k;
 	unsigned			iteration;
 };
 
@@ -85,6 +97,5 @@ inline static t_compl	mult_complex(t_compl c1, t_compl c2);
 t_compl					pow_complex(t_compl c1, unsigned i);
 
 void					stupid_fun(t_cont *img, double r, double shift[2], int mi);
-
 
 #endif

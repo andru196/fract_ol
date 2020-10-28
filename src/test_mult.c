@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:42:30 by andru             #+#    #+#             */
-/*   Updated: 2020/10/28 01:47:19 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/29 01:30:25 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	stupid_fun(t_cont *cont, double r, double shift[2], int max_iteration)
 		* height / width);
 	fractal.factor_re = (fractal.max_re - fractal.min_re) / (width - 1);
     fractal.factor_im = (fractal.max_im - fractal.min_im) / (height - 1);
-
-	max_iteration += 100 * fabs(log(r));
+	if (cont->current_set == julia_set)
+		fractal.k = cont->k;
+	fractal.iteration = 50 * fabs(log(r)) + max_iteration;
 	if (!cont->clcomponets.is_connected)
-		cl_try_init_connect(&cont->clcomponets, "./hello.cl");
+		cl_try_init_connect(&cont->clcomponets, "hello.cl", cont->current_set);
 	if (cont->clcomponets.is_connected)
-		if (cl_set_param(&cont->clcomponets, fractal, cont->img, max_iteration))
+		if (cl_set_param(&cont->clcomponets, fractal, cont->img, cont->current_set == julia_set))
 			cl_read_img(&cont->clcomponets, cont->img, max_iteration);
 	}

@@ -11,7 +11,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/fractol",
             // "args": ["/Users/sfalia-f/Desktop/fdF/files/test_maps/42.fdf"],
-            "args": ["map"],
+            "args": ["julia"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
