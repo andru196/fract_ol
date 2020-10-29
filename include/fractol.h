@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/29 01:24:33 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/30 01:01:13 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
-# define WIDTH 1024
-# define HEIGHT 1024
+# define WIDTH 512
+# define HEIGHT 512
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
 # define DELTA_MAXITER 100
@@ -71,6 +71,8 @@ struct					s_cont
 	t_img				*img;
 	t_compl				k;
 	t_clcomponents		clcomponets;
+	void				(*draw_fractal)(t_cont *, double, double[2],
+											int);
 };
 
 
@@ -83,6 +85,9 @@ struct					s_fractol
 	double				factor_re;
 	double				factor_im;
 	t_compl				k;
+	t_compl				factor;
+	t_compl				max;
+	t_compl				min;
 	unsigned			iteration;
 };
 
@@ -95,7 +100,11 @@ void					free_cont(t_cont *c);
 inline t_compl			sum_complex(t_compl c1, t_compl c2);
 inline static t_compl	mult_complex(t_compl c1, t_compl c2);
 t_compl					pow_complex(t_compl c1, unsigned i);
+void					set_default(t_cont *c);
 
-void					stupid_fun(t_cont *img, double r, double shift[2], int mi);
+void					stupid_fun(t_cont *img, double r, double shift[2],
+																	int mi);
+void					stupid_fun_single_thread(t_cont *cont, double r,
+											double shift[2], int max_iteration);
 
 #endif

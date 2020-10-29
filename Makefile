@@ -6,7 +6,7 @@
 #    By: andru <andru@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/10/28 23:05:51 by andru            ###   ########.fr        #
+#    Updated: 2020/10/30 00:22:28 by andru            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ FILES	=			main.c\
 					free_cont.c\
 					events_keyboard.c\
 					cl_fun.c\
-					test_mult.c
+					fractol_default.c\
+					test_mult.c\
+					test.c
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang

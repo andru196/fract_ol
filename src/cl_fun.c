@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/10/29 01:31:09 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/30 01:31:36 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int			cl_read_img(t_clcomponents *comp, t_img *img, int maxiter)
 	size_t const	local[] = {(size_t) WIDTH, (size_t) HEIGHT};
 	int				nums[HEIGHT * WIDTH];
 
+	ret = clFlush(comp->command_queue);
+	ret = clFinish(comp->command_queue);
 	ret = clEnqueueNDRangeKernel(comp->command_queue, comp->kernel, 2, global,
 												local, NULL, 0, NULL, NULL);
 	ret = clEnqueueReadBuffer(comp->command_queue, comp->buffer, CL_TRUE, 0,

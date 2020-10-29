@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/05 23:23:07 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/29 01:23:06 by andru            ###   ########.fr       */
+/*   Updated: 2020/10/30 00:20:01 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	lr_mouse_press(int button, int x, int y, t_cont *c)
 	c->shift[0] /= mult;
 	c->shift[1] /= mult;
 	c->r *= mult;
-	stupid_fun(c, (c->r), c->shift, c->maxiter);
+	c->draw_fractal(c, (c->r), c->shift, c->maxiter);
 	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 }
 
@@ -48,7 +48,7 @@ static int	mouse_press(int button, int x, int y, void *param)
 		c->shift[0] /= mult;
 		c->shift[1] /= mult;
 		c->r *= mult;
-		stupid_fun(c, (c->r), c->shift, c->maxiter);
+		c->draw_fractal(c, (c->r), c->shift, c->maxiter);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}
@@ -84,9 +84,12 @@ static int	mouse_move(int x, int y, void *param)
 		c->k = init_complex(
 			4 * ((double)x / WIDTH - 0.5),
 			4 * ((double)(HEIGHT - y) / HEIGHT - 0.5));
-		stupid_fun(c, (c->r), c->shift, 50);
-		mlx_clear_window(c->mlx_ptr, c->mlx_win);
-		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		if (x % 8 == 0 || y % 8 == 0)
+		{
+			c->draw_fractal(c, (c->r), c->shift, 50);
+			mlx_clear_window(c->mlx_ptr, c->mlx_win);
+			mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		}
 		return (0);
 	}
 	return (1);

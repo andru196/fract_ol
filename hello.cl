@@ -1,4 +1,4 @@
-inline double get_color1(int iter, int maxiter)
+inline int get_color1(int iter, int maxiter)
 {
 	double	t;
 	int		r;
@@ -8,15 +8,14 @@ inline double get_color1(int iter, int maxiter)
 	if (iter != maxiter)
 	{
 		t = (double)iter / maxiter;
-		r =  (int)(9 * (1 - t) * t * t * t * 255) << 16;
-		g = (int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8;
-		b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-		return (~r ^ ~g ^ ~b);
+		return (~(int)(9 * (1 - t) * t * t * t * 255) << 16) ^
+		(~(int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8) ^
+		(~(int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255));
 	}
 	return (0);
 }
 
-inline double get_color2(int iter, int maxiter)
+inline int get_color2(int iter, int maxiter)
 {
 	double	t;
 	int		r;
@@ -27,8 +26,26 @@ inline double get_color2(int iter, int maxiter)
 	{
 		t = (double)iter / maxiter;
 		r =  (int)(9 * (1 - t) * t * t * t * 255) << 16;
+		g = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255) << 8;
+		b = (int)(15 * (1 - t) * (1 - t) * t * t * 255);
+		return (r | g | b);
+	}
+	return (0);
+}
+
+inline int get_color3(int iter, int maxiter)
+{
+	double	t;
+	int		r;
+	int		g;
+	int		b;
+
+	if (iter != maxiter)
+	{
+		t = (double)iter / maxiter;
+		r =  (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255) << 16;
 		g = (int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8;
-		b = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+		b = (int)(9 * (1 - t) * t * t * t * 255);
 		return (r | g | b);
 	}
 	return (0);
@@ -45,13 +62,15 @@ __kernel void mandelbrotProcess(__global unsigned int* iterations,
 	int iteration;
 	double x = 0.0f;
 	double y = 0.0f;
-	for (iteration = 0; iteration < max_iteration; iteration++) {
-		double xn = x * x - y * y + cx;
+	for (iteration = 0; iteration < max_iteration; iteration++)
+	{
+		double x2 = x * x;
+		double y2 = y * y;
+		double xn = x2 - y2 + cx;
 		y = 2 * x * y + cy;
 		x = xn;
-		if (x * x + y * y > 4.0) {
+		if (x2 + y2 > 4.0)
 			break;
-		}
 	}
 	iterations[width * py + px] = get_color1(iteration, max_iteration);
 }
@@ -69,20 +88,20 @@ __kernel void burningShipProcess(__global unsigned int* iterations,
 	int px = get_global_id(0) - 32;
 	int py = get_global_id(1) - 32;
 	if (px >= width || py >= height) return;
-
 	double cy = toY - py * fy;
 	double cx = fromX + px * fx;
-
 	int iteration;
 	double x = 0.0f;
 	double y = 0.0f;
-	for (iteration = 0; iteration < max_iteration; iteration++) {
-		double xn = x * x - y * y + cx;
+	for (iteration = 0; iteration < max_iteration; iteration++)
+	{
+		double x2 = x * x;
+		double y2 = y * y;
+		double xn = x2 - y2 + cx;
 		y = -2 * dabs_my(x * y) + cy;
 		x = xn;
-		if (x * x + y * y > 4.0) {
+		if (x2 + y2 > 4.0)
 			break;
-		}
 	}
 	iterations[width * py + px] = get_color2(iteration, max_iteration);
 }
@@ -104,7 +123,6 @@ __kernel void juliaProcess(__global unsigned int* iterations,
 	{
 		double x2 = x * x;
 		double y2 = y * y;
-
 		double xn = x2 - y2 - kx;
 		y = 2 * x * y + ky;
 		x = xn;
@@ -112,5 +130,5 @@ __kernel void juliaProcess(__global unsigned int* iterations,
 		if (x2 + y2 > 4.0)
 			break;
 	}
-	iterations[width * py + px] = get_color2(iteration, max_iteration);
+	iterations[width * py + px] = get_color3(iteration, max_iteration);
 }
