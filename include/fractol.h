@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/11/01 21:36:40 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:15:33 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_cont		t_cont;
 typedef struct s_img		t_img;
 typedef struct s_line		t_line;
 typedef struct s_compl		t_compl;
-typedef struct s_point		t_point;
 typedef unsigned char		byte;
 typedef unsigned long long	t_llu;
 typedef struct s_fractol	t_fract;
@@ -87,10 +86,7 @@ struct					s_fractol
 
 t_img					*new_image(void *mlx_ptr, int width, int height);
 void					configure_events(t_cont *c);
-int 					key_press(int keycode, void *param);
 void					free_cont(t_cont *c);
-
-//t_compl					init_complex(double re, double im);
 inline t_compl			sum_complex(t_compl c1, t_compl c2);
 inline static t_compl	mult_complex(t_compl c1, t_compl c2);
 t_compl					pow_complex(t_compl c1, unsigned i);
@@ -100,5 +96,8 @@ void					stupid_fun(t_cont *img, double r, double shift[2],
 																	int mi);
 void					stupid_fun_single_thread(t_cont *cont, double r,
 											double shift[2], int max_iteration);
+void					ship_formula(int max_iteration, int *data, t_compl c, t_compl k);
+void					julia_formula(int max_iteration, int *data, t_compl c, t_compl k);
+void					mandelbrot_formula(int max_iteration, int *data, t_compl c, t_compl k);
 
 #endif

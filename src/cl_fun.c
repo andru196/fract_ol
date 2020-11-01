@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 21:36:20 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:19:45 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,11 @@ int	cl_release_all(t_clcomponents *comp)
 	return (ret);
 }
 
-static inline void setcolor(int nums[WIDTH * HEIGHT], int maxiter, byte *img)
+int			cl_read_img(t_clcomponents *comp, t_img *img)
 {
-	double	t;
-	int		color_rgb[4];
-
-	for (int j = 0; j < WIDTH * HEIGHT; j++)
-	{
-		t = (double)nums[j] / maxiter;
-		color_rgb[1] =  (int)(9 * (1 - t) * t * t * t * 255) << 16;
-		color_rgb[2] = (int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8;
-		color_rgb[3] = (int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-		color_rgb[0] = color_rgb[1] | color_rgb[2] | color_rgb[3];
-		((int*)img)[j] = color_rgb[0];
-	}
-}
-
-int			cl_read_img(t_clcomponents *comp, t_img *img, int maxiter)
-{
-	unsigned int	i = 0;
 	cl_int			ret;
 	size_t const	global[] = {32, 32};
 	size_t const	local[] = {(size_t) WIDTH, (size_t) HEIGHT};
-	int				nums[HEIGHT * WIDTH];
 
 	ret = clFlush(comp->command_queue);
 	ret = clFinish(comp->command_queue);
@@ -72,11 +54,12 @@ int			cl_read_img(t_clcomponents *comp, t_img *img, int maxiter)
 
 int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int is_extra)
 {
-	unsigned int i = 0;
-	cl_int ret;
+	unsigned	i;
+	cl_int		ret;
 
 	comp->buffer = clCreateBuffer(comp->context, CL_MEM_WRITE_ONLY,
 					img->height * img->width * sizeof(cl_int4), NULL, &ret);
+	i = 0;
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(cl_mem),
 														(void *)&comp->buffer);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &img->width);
@@ -122,72 +105,4 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set)
 			comp->is_connected = 1;
 	}
 	return (ret);
-}
-
-t_platform_info *get_platform_info(cl_platform_id id)
-{
-    t_platform_info	*rez;
-    size_t			size;
-
-    rez = malloc(sizeof(t_platform_info));
-    clGetPlatformInfo(id, CL_PLATFORM_PROFILE, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_PROFILE, size, (rez->profile = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VERSION, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VERSION, size, (rez->version = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VENDOR, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VENDOR, size, (rez->vendor = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_EXTENSIONS, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_EXTENSIONS, size, (rez->extensions = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_NAME, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_NAME, size, (rez->name = malloc(size)), &size);
-	return rez;
-}
-
-
-
-static inline t_device_info *get_device_part2(t_device_info *rez, size_t size, cl_device_id id)
-{
-	
-	clGetDeviceInfo(id, CL_DEVICE_PROFILE, 0, 0, &size);	
-	clGetDeviceInfo(id, CL_DEVICE_PROFILE, size, rez->profile = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, size, rez->extensions = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_PLATFORM, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_PLATFORM, size, rez->platform = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_LOCAL_MEM_SIZE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_LOCAL_MEM_SIZE, size, &rez->local_mem_size, &size);
-	clGetDeviceInfo(id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, size, &rez->global_mem_size, &size);
-	clGetDeviceInfo(id, CL_DEVICE_AVAILABLE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_AVAILABLE, size, &rez->available, &size);
-	return (rez);
-}
-
-t_device_info   *get_device_info(cl_device_id id)
-{
-    t_device_info	*rez;
-    size_t			size;
-
-	rez = malloc(sizeof(t_device_info));
-	clGetDeviceInfo(id, CL_DEVICE_TYPE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_TYPE, sizeof(t_llu), &rez->type, &size);
-	clGetDeviceInfo(id, CL_DEVICE_VENDOR_ID, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_VENDOR_ID, sizeof(t_llu), &rez->vendor_id, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_COMPUTE_UNITS, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_COMPUTE_UNITS, sizeof(t_llu), &rez->max_compute_units, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(t_llu), &rez->max_work_item_dimensions, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_WORK_GROUP_SIZE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(t_llu), &rez->max_work_group_size, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_WORK_ITEM_SIZES, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_MAX_WORK_ITEM_SIZES, size, rez->max_work_item_size = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_ADDRESS_BITS, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint), &rez->address_bits, &size);
-	clGetDeviceInfo(id, CL_DEVICE_NAME, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_NAME, size, rez->name = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_VENDOR, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_VENDOR, size, rez->vendor = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_VERSION, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_VERSION, size, rez->version = malloc(size), &size);
-	return get_device_part2(rez, size, id);
 }

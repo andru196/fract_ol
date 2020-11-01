@@ -6,11 +6,11 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 21:33:49 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:06:19 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "events.h"
 #include "keys.h"
 
 static void	ext(t_cont *c)

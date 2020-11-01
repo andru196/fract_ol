@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   events.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/05 23:23:07 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 22:16:58 by andru            ###   ########.fr       */
+/*   Created: 2020/11/01 22:03:58 by andru             #+#    #+#             */
+/*   Updated: 2020/11/01 22:05:55 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "events.h"
+#ifndef EVENTS_H
+# define EVENTS_H
+# include "fractol.h"
 
-void		configure_events(t_cont *c)
-{
-	mlx_hook(c->mlx_win, 2, (1L<<0), key_press, c);
-	mlx_hook(c->mlx_win, 4, 1L<<2, mouse_press, c);
-	mlx_hook(c->mlx_win, 6, (1L<<6), mouse_move, c);
-}
+void        lr_mouse_press(int button, int x, int y, t_cont *c);
+int     	mouse_press(int button, int x, int y, void *param);
+int     	mouse_release(int button, int x, int y, void *param);
+int     	mouse_move(int x, int y, void *param);
+int         key_press(int keycode, void *param);
+
+# endif

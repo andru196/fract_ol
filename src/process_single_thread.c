@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   process_single_thread.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 23:19:25 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 21:13:48 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:20:22 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-inline static t_compl	init_complex(double re, double im)
-{
-    t_compl	complex;
-    
-    complex.re = re;
-    complex.im = im;
-    return (complex);
-}
-
-inline static int get_color1(int iter, int maxiter)
-{
-	double	t;
-
-	if (iter != maxiter)
-	{
-		t = (double)iter / maxiter;
-		return  (~(int)(9 * (1 - t) * t * t * t * 255) << 16) ^
-		(~(int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8) ^
-		(~(int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255));
-	}
-	return (0);
-}
 
 static inline void	set_fractal(t_fract *f, double shift[2], t_img *img, double r)
 {
@@ -45,60 +22,6 @@ static inline void	set_fractal(t_fract *f, double shift[2], t_img *img, double r
 	f->factor.im = (f->max.im - f->min.im) / (img->height- 1);
 }
 
-void	mandelbrot_formula(int max_iteration, int *data, t_compl c, t_compl k)
-{
-	t_compl	z;
-	int		iteration;
-
-	k.re = 0;
-	z = init_complex(c.re, c.im);
-	iteration = 0;
-	while (iteration < max_iteration && (z.re * z.re + z.im * z.im) <= 4.0L)
-	{
-		z = init_complex(
-			z.re * z.re - z.im * z.im + c.re,
-			2.0L * z.re * z.im + c.im);
-		iteration++;
-	}
-	*data = get_color1(iteration, max_iteration);
-}
-
-
-void	julia_formula(int max_iteration, int *data, t_compl c, t_compl k)
-{
-	t_compl	z;
-	int		iteration;
-
-	z = init_complex(c.re, c.im);
-	iteration = 0;
-	while (iteration < max_iteration && (z.re * z.re + z.im * z.im) <= 4.0L)
-	{
-		z = init_complex(
-			z.re * z.re - z.im * z.im - k.re,
-			2.0L * z.re * z.im + k.im);
-		iteration++;
-	}
-	*data = get_color1(iteration, max_iteration);
-}
-
-void	ship_formula(int max_iteration, int *data, t_compl c, t_compl k)
-{
-	t_compl	z;
-	int		iteration;
-
-	k.re = 0;
-	z = init_complex(c.re, c.im);
-	iteration = 0;
-	while (iteration < max_iteration && (z.re * z.re + z.im * z.im) <= 4.0L)
-	{
-		z = init_complex(
-			z.re * z.re - z.im * z.im - c.re,
-			-2.0L * fabs( z.re * z.im) + c.im);
-		iteration++;
-	}
-	*data = get_color1(iteration, max_iteration);
-}
-
 void	*get_formula(t_set current_set)
 {
 	if (current_set == mandelbrot_set)
@@ -108,7 +31,6 @@ void	*get_formula(t_set current_set)
 	else 
 		return (julia_formula);
 }
-
 
 /*
 ** x_y_max[4]: x, y, max_x, max_y

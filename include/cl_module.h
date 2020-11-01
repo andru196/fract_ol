@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 00:28:52 by andru             #+#    #+#             */
-/*   Updated: 2020/10/29 01:29:23 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:19:08 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ struct							s_clcomponents
 };
 
 int								cl_release_all(t_clcomponents *comp);
-int								cl_read_img(t_clcomponents *comp, t_img *img, int maxiter);
+int								cl_read_img(t_clcomponents *comp, t_img *img);
 int								cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int is_extra);
 int								cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set);
 
