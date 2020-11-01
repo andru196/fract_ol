@@ -6,13 +6,13 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 22:19:45 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:26:17 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	cl_release_all(t_clcomponents *comp)
+int			cl_release_all(t_clcomponents *comp)
 {
 	cl_int ret;
 
