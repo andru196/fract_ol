@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 23:19:25 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/30 01:27:42 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:13:48 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,35 +109,35 @@ void	*get_formula(t_set current_set)
 		return (julia_formula);
 }
 
+
+/*
+** x_y_max[4]: x, y, max_x, max_y
+*/
 void	stupid_fun_single_thread(t_cont *cont, double r, double shift[2], int max_iteration)
 {
-	t_compl c;
-	t_fract f;
-	int iteration, x, y;
-	int width, height;
-	int	*data;
-	void(*formula)(int, int *, t_compl, t_compl);
+	t_compl			c;
+	t_fract			f;
+	int				x_y_max[4];
+	int				*data;
+	void (*formula)	(int, int *, t_compl, t_compl);
 
 	formula = get_formula(cont->current_set);
-	width = cont->img->width;
-	height = cont->img->height;
-
+	x_y_max[2] = cont->img->width;
+	x_y_max[3] = cont->img->height;
 	set_fractal(&f, shift, cont->img, r);
 	f.k = cont->k;
 	max_iteration = 50 * fabs(log(r)) + max_iteration /
 					(cont->current_set == julia_set ? 10 : 1);
-	y = 0;
+	x_y_max[1] = -1;
 	data = (int*)cont->img->data;
-	while (y < height)
+	while (++x_y_max[1] < x_y_max[2])
 	{
-		c.im = f.max.im - y * f.factor.im;
-		x = 0;
-		while (x < width)
+		c.im = f.max.im - x_y_max[1] * f.factor.im;
+		x_y_max[0] = -1;
+		while (++x_y_max[0] < x_y_max[3])
 		{
-			c.re = f.min.re + x * f.factor.re;
+			c.re = f.min.re + x_y_max[0] * f.factor.re;
 			formula(max_iteration, data++, c, f.k);
-			x++;
 		}
-		y++;
 	}
 }

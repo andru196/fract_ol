@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/10/30 01:31:36 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:36:20 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,24 @@ int	cl_release_all(t_clcomponents *comp)
 {
 	cl_int ret;
 
-	ret = clFlush(comp->command_queue);
-	ret = clFinish(comp->command_queue);
-	ret = clReleaseKernel(comp->kernel);
-	ret = clReleaseProgram(comp->program);
-	ret = clReleaseMemObject(comp->buffer);
-	ret = clReleaseCommandQueue(comp->command_queue);
-	ret = clReleaseContext(comp->context);
+	ret = 0;
+	if (comp->command_queue)
+	{
+		ret = clFlush(comp->command_queue);
+		ret = clFinish(comp->command_queue);
+		ret = clReleaseKernel(comp->kernel);
+		ret = clReleaseProgram(comp->program);
+		ret = clReleaseMemObject(comp->buffer);
+		ret = clReleaseCommandQueue(comp->command_queue);
+		ret = clReleaseContext(comp->context);
+		comp->command_queue = NULL;
+		comp->kernel = NULL;
+		comp->program = NULL;
+		comp->buffer = NULL;
+		comp->context = NULL;
 	if (ret >= 0)
 		comp->is_connected = 0;
+	}
 	return (ret);
 }
 
@@ -72,13 +81,13 @@ int			cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int is_extra
 														(void *)&comp->buffer);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &img->width);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &img->height);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min_re);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min_im);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_re);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max_im);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min.re);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.min.im);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max.re);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.max.im);
 	ret = clSetKernelArg(comp->kernel, i++, sizeof(int), &fract.iteration);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor_re);
-	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor_im);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor.re);
+	ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.factor.im);
 	if (is_extra)
 	{
 		ret = clSetKernelArg(comp->kernel, i++, sizeof(double), &fract.k.re);
@@ -92,7 +101,7 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set)
 	size_t	source_size;
 	cl_int	ret;
 
-	if ((ret = read_all_text(filename, &comp->program_src)))
+	if (comp->program_src || (ret = read_all_text(filename, &comp->program_src)))
 	{
 		ret = clGetPlatformIDs(1, &comp->platform_id, &comp->ret_num_platforms);
 		ret = clGetDeviceIDs(comp->platform_id, CL_DEVICE_TYPE_GPU, 1, &comp->device_id, &comp->ret_num_devices);
@@ -134,6 +143,26 @@ t_platform_info *get_platform_info(cl_platform_id id)
 	return rez;
 }
 
+
+
+static inline t_device_info *get_device_part2(t_device_info *rez, size_t size, cl_device_id id)
+{
+	
+	clGetDeviceInfo(id, CL_DEVICE_PROFILE, 0, 0, &size);	
+	clGetDeviceInfo(id, CL_DEVICE_PROFILE, size, rez->profile = malloc(size), &size);
+	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, 0, 0, &size);
+	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, size, rez->extensions = malloc(size), &size);
+	clGetDeviceInfo(id, CL_DEVICE_PLATFORM, 0, 0, &size);
+	clGetDeviceInfo(id, CL_DEVICE_PLATFORM, size, rez->platform = malloc(size), &size);
+	clGetDeviceInfo(id, CL_DEVICE_LOCAL_MEM_SIZE, 0, 0, &size);
+	clGetDeviceInfo(id, CL_DEVICE_LOCAL_MEM_SIZE, size, &rez->local_mem_size, &size);
+	clGetDeviceInfo(id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, 0, 0, &size);
+	clGetDeviceInfo(id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, size, &rez->global_mem_size, &size);
+	clGetDeviceInfo(id, CL_DEVICE_AVAILABLE, 0, 0, &size);
+	clGetDeviceInfo(id, CL_DEVICE_AVAILABLE, size, &rez->available, &size);
+	return (rez);
+}
+
 t_device_info   *get_device_info(cl_device_id id)
 {
     t_device_info	*rez;
@@ -160,17 +189,5 @@ t_device_info   *get_device_info(cl_device_id id)
 	clGetDeviceInfo(id, CL_DEVICE_VENDOR, size, rez->vendor = malloc(size), &size);
 	clGetDeviceInfo(id, CL_DEVICE_VERSION, 0, 0, &size);
 	clGetDeviceInfo(id, CL_DEVICE_VERSION, size, rez->version = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_PROFILE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_PROFILE, size, rez->profile = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, size, rez->extensions = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_PLATFORM, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_PLATFORM, size, rez->platform = malloc(size), &size);
-	clGetDeviceInfo(id, CL_DEVICE_LOCAL_MEM_SIZE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_LOCAL_MEM_SIZE, size, &rez->local_mem_size, &size);
-	clGetDeviceInfo(id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, size, &rez->global_mem_size, &size);
-	clGetDeviceInfo(id, CL_DEVICE_AVAILABLE, 0, 0, &size);
-	clGetDeviceInfo(id, CL_DEVICE_AVAILABLE, size, &rez->available, &size);
-	return rez;
+	return get_device_part2(rez, size, id);
 }

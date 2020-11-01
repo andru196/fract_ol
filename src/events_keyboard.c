@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/10/30 01:34:19 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:33:49 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static inline int	change_set(t_cont *c, int keycode)
 	}
 	return (0);
 }
+
 inline static int	change_mod(t_cont *c, int keycode)
 {
 	if (keycode == NUM_S)

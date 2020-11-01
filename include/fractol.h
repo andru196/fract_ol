@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/30 01:01:13 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 21:36:40 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "mlx.h"
 # include <math.h>
 # include <fcntl.h>
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 1024
+# define HEIGHT 1024
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
 # define DELTA_MAXITER 100
@@ -78,12 +78,6 @@ struct					s_cont
 
 struct					s_fractol
 {
-	double				max_re;
-	double				max_im;
-	double				min_re;
-	double				min_im;
-	double				factor_re;
-	double				factor_im;
 	t_compl				k;
 	t_compl				factor;
 	t_compl				max;
