@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:07:19 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 22:17:03 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/01 22:24:16 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	lr_mouse_press(int button, int x, int y, t_cont *c)
 	mult = button == 1 ? 1.0L / 3.0 :  3.0;
 	if (button == 1)
 	{
-		c->shift[0] += 4*((double)x/WIDTH - 0.5) ; 
-		c->shift[1] += -4*((double)y/HEIGHT - 0.5) ;
+		c->shift[0] += 4 * ((double)x / WIDTH - 0.5) ; 
+		c->shift[1] += -4 * ((double)y / HEIGHT - 0.5) ;
 	}
 	c->shift[0] /= mult;
 	c->shift[1] /= mult;
