@@ -6,18 +6,19 @@
 /*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:07:19 by andru             #+#    #+#             */
-/*   Updated: 2020/11/14 15:35:13 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/14 16:05:00 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
+#include "keys.h"
 
 void	lr_mouse_press(int button, int x, int y, t_cont *c)
 {
 	long double mult;
 
 	mult = button == 1 ? 1.0L / 3.0 :  3.0;
-	if (button == 1)
+	if (button == LM_KEY)
 	{
 		c->shift[0] += 4 * ((double)x / WIDTH - 0.5) ; 
 		c->shift[1] += -4 * ((double)y / HEIGHT - 0.5) ;
@@ -53,7 +54,7 @@ int	mouse_press(int button, int x, int y, void *param)
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}
-	else if (button == 1 || button == 3)
+	else if (button == LM_KEY || button == RM_KEY)
 		lr_mouse_press(button, x, y, param);
 	return (1);
 }

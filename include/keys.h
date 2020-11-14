@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 23:10:33 by andru             #+#    #+#             */
-/*   Updated: 2020/10/29 23:21:01 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/14 16:04:28 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@
 #  define NUM_S	1
 #  define NUM_Q	12
 #  define RED 2
-#  define BLUE 0
+#  define LM_KEY 1
+#  define RM_KEY 2
+
 # else
 #  define PP ++
 #  define NUM_1 49
@@ -47,6 +49,8 @@
 #  define NUM_Q	113
 #  define RED 0
 #  define BLUE 2
+#  define LM_KEY 1
+#  define RM_KEY 3
 # endif
 
 
