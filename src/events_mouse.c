@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:07:19 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 22:24:16 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/14 15:35:13 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	lr_mouse_press(int button, int x, int y, t_cont *c)
 	c->shift[1] /= mult;
 	c->r *= mult;
 	c->draw_fractal(c, (c->r), c->shift, c->maxiter);
+	mlx_clear_window(c->mlx_ptr, c->mlx_win);
 	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 }
 

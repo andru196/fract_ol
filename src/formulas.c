@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   formulas.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:54:13 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 21:55:46 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/14 15:57:20 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ inline static int get_color1(int iter, int maxiter)
 	if (iter != maxiter)
 	{
 		t = (double)iter / maxiter;
-		return  (~(int)(9 * (1 - t) * t * t * t * 255) << 16) ^
-		(~(int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8) ^
-		(~(int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255));
+		return  ((int)(9 * (1 - t) * t * t * t * 255) << 16) |
+		((int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8) |
+		((int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255));
 	}
 	return (0);
 }

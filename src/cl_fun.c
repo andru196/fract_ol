@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cl_fun.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:44:20 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 22:26:17 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/14 15:20:43 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set)
 		ret = clGetDeviceIDs(comp->platform_id, CL_DEVICE_TYPE_GPU, 1, &comp->device_id, &comp->ret_num_devices);
 
 		comp->context = clCreateContext(NULL, 1, &comp->device_id, NULL, NULL, &ret);
-		comp->command_queue = clCreateCommandQueueWithProperties(comp->context, comp->device_id, 0, &ret);
+		comp->command_queue = clCreateCommandQueue(comp->context, comp->device_id, 0, &ret);
 		source_size = ft_strlen(comp->program_src);
 		comp->program = clCreateProgramWithSource(comp->context, 1, (const char **)&comp->program_src,
 								(const size_t *)&source_size, &ret);

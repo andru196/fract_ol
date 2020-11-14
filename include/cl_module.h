@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cl_module.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 00:28:52 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 22:19:08 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/14 15:19:12 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CL_PARAMETR_H
 # define CL_PARAMETR_H
+#ifdef __APPLE__
+
+#include <OpenCL/cl.h>
+#include <OpenCL/cl_gl.h>
+#include <OpenCL/cl_gl_ext.h>
+#include <OpenCL/cl_ext.h>
+
+#else
 # include <CL/cl.h>
+#endif
+
 # include "fractol.h"
 # define MANDELBROT "mandelbrotProcess"
 # define JULIA "juliaProcess"

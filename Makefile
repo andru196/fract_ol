@@ -3,14 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andru <andru@student.42.fr>                +#+  +:+       +#+         #
+#    By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/11/01 22:13:34 by andru            ###   ########.fr        #
+#    Updated: 2020/11/14 15:29:10 by sfalia-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	fractol
+UNAME := $(shell uname)
 DIR	=				./src/
 FILES	=			main.c\
 					image.c\
@@ -33,7 +34,11 @@ LIBFT			=	$(LIBRARY)libft.a
 HEADERS			=	include/ $(LIBRARY)includes
 MINILIBDIR		=	minilib/
 INCLUDES		=	-I include/ -I $(LIBRARY)includes -I $(MINILIBDIR)
-LIBS = -lGL -lXext -lX11 -lm -lOpenCL
+ifeq ($(UNAME), Darwin)
+	LIBS = -lmlx -framework OpenGL -framework opencl -framework Appkit
+else
+	LIBS = -lGL -lXext -lX11 -lm -lOpenCL
+endif
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ)

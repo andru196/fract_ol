@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_keyboard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 22:06:19 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/14 15:35:41 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static inline int	deltas(t_cont *c, int keycode)
 		|| keycode == NUM_PLUS || keycode == NUM_MINS)
 	{
 		c->draw_fractal(c, c->r, c->shift, c->maxiter);
+		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 	}
 	return (keycode == ARROW_L || keycode == ARROW_U || keycode == ARROW_R ||
@@ -59,6 +60,7 @@ static inline int	change_set(t_cont *c, int keycode)
 		else if (keycode == NUM_3 && c->current_set != julia_set)
 			c->current_set = julia_set;
 		set_default(c);
+		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		c->draw_fractal(c, c->r, c->shift, c->maxiter);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 		return (1);
@@ -74,6 +76,7 @@ inline static int	change_mod(t_cont *c, int keycode)
 			stupid_fun_single_thread)(c, c->r, c->shift, c->maxiter);
 		if (c->draw_fractal == stupid_fun_single_thread)
 			cl_release_all(&c->clcomponets);
+		mlx_clear_window(c->mlx_ptr, c->mlx_win);	
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 		
 		return (1);

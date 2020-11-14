@@ -8,9 +8,9 @@ inline int get_color1(int iter, int maxiter)
 	if (iter != maxiter)
 	{
 		t = (double)iter / maxiter;
-		return (~(int)(9 * (1 - t) * t * t * t * 255) << 16) ^
-		(~(int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8) ^
-		(~(int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255));
+		return ((int)(9 * (1 - t) * t * t * t * 255) << 16) |
+		((int)(15 * (1 - t) * (1 - t) * t * t * 255) << 8) |
+		((int)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255));
 	}
 	return (0);
 }
