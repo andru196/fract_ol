@@ -6,7 +6,7 @@
 #    By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/11/14 16:05:32 by sfalia-f         ###   ########.fr        #
+#    Updated: 2020/11/21 20:02:09 by sfalia-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ FILES	=			main.c\
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang
-FLAGS			=	-Wall -Wextra -Werror
+FLAGS			=	-g#-Wall -Wextra -Werror
 LIBRARY			=	./libft/
 LIBFT			=	$(LIBRARY)libft.a
 HEADERS			=	include/ $(LIBRARY)includes

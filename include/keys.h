@@ -6,7 +6,7 @@
 /*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 23:10:33 by andru             #+#    #+#             */
-/*   Updated: 2020/11/14 16:04:28 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:04:53 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@
 #  define RED 2
 #  define LM_KEY 1
 #  define RM_KEY 2
-
+#  define NUM_PLUS 69
+#  define NUM_MINS 78
+#  define ARROW_L 123
+#  define ARROW_U 126
+#  define ARROW_R 124
+#  define ARROW_D 125
 # else
 #  define PP ++
 #  define NUM_1 49
@@ -51,9 +56,6 @@
 #  define BLUE 2
 #  define LM_KEY 1
 #  define RM_KEY 3
-# endif
-
-
 #  define ARROW_L 65361
 #  define ARROW_U 65362
 #  define ARROW_R 65363
@@ -61,6 +63,9 @@
 
 #  define NUM_PLUS 65451
 #  define NUM_MINS 65453
+# endif
+
+
 
 
 #endif
