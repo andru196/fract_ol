@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   process_multy_thread.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 00:42:30 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 22:20:03 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 21:53:34 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-inline static t_compl	init_complex(double re, double im)
+inline static t_compl		init_complex(double re, double im)
 {
-    t_compl	complex;
-    
-    complex.re = re;
-    complex.im = im;
-    return (complex);
+	t_compl	complex;
+
+	complex.re = re;
+	complex.im = im;
+	return (complex);
 }
 
-void	stupid_fun(t_cont *cont, double r, double shift[2], int max_iteration)
+void						stupid_fun(t_cont *cont, double r, double shift[2],
+															int max_iteration)
 {
 	t_fract	fractal;
 	int		width;
@@ -41,8 +42,9 @@ void	stupid_fun(t_cont *cont, double r, double shift[2], int max_iteration)
 	if (!cont->clcomponets.is_connected)
 		cl_try_init_connect(&cont->clcomponets, "hello.cl", cont->current_set);
 	if (cont->clcomponets.is_connected && cl_set_param(&cont->clcomponets,
-		fractal, cont->img, cont->current_set == julia_set))
-			cl_read_img(&cont->clcomponets, cont->img);
+						fractal, cont->img, cont->current_set == julia_set))
+		cl_read_img(&cont->clcomponets, cont->img);
 	else
-		(cont->draw_fractal = stupid_fun_single_thread)(cont, r, shift, max_iteration);
+		(cont->draw_fractal = stupid_fun_single_thread)(cont, r, shift,
+																max_iteration);
 }

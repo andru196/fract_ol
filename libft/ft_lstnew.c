@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 18:09:52 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/25 20:58:38 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 22:12:14 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ size_t		ft_lstcontsize(t_list *frst)
 	while (frst)
 	{
 		rez += frst->content_size;
-		frst = frst->next; 
+		frst = frst->next;
 	}
 	return (rez);
 }

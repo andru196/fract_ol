@@ -6,30 +6,29 @@
 /*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/14 15:35:41 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:32:16 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "keys.h"
 
-static void	ext(t_cont *c)
+static void			ext(t_cont *c)
 {
 	free_cont(c);
 	ft_putendl("Bye, bye.....");
 	exit(0);
 }
 
-
 static inline int	deltas(t_cont *c, int keycode)
 {
-	if (keycode == ARROW_L) 
+	if (keycode == ARROW_L)
 		c->shift[0] -= DELTA;
 	else if (keycode == ARROW_U)
 		c->shift[1] += DELTA;
-	else if (keycode == ARROW_R) 
+	else if (keycode == ARROW_R)
 		c->shift[0] += DELTA;
-	else if (keycode == ARROW_D) 
+	else if (keycode == ARROW_D)
 		c->shift[1] -= DELTA;
 	else if (keycode == NUM_PLUS || keycode == 61)
 		c->maxiter += DELTA_MAXITER;
@@ -76,15 +75,14 @@ inline static int	change_mod(t_cont *c, int keycode)
 			stupid_fun_single_thread)(c, c->r, c->shift, c->maxiter);
 		if (c->draw_fractal == stupid_fun_single_thread)
 			cl_release_all(&c->clcomponets);
-		mlx_clear_window(c->mlx_ptr, c->mlx_win);	
+		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
-		
 		return (1);
 	}
 	return (0);
 }
 
-int 		key_press(int keycode, void *param)
+int					key_press(int keycode, void *param)
 {
 	t_cont *c;
 
@@ -92,10 +90,10 @@ int 		key_press(int keycode, void *param)
 	if (NUM_Q == keycode || keycode == NUM_ESC)
 		ext(c);
 	if (deltas(c, keycode))
-	;
+		;
 	else if (change_set(c, keycode))
-	;
+		;
 	else if (change_mod(c, keycode))
-	;
+		;
 	return (1);
 }

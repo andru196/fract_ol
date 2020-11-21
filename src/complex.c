@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   complex.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/09 01:07:02 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 22:14:41 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 20:07:47 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-inline t_compl	sum_complex(t_compl c1, t_compl c2)
+inline t_compl			sum_complex(t_compl c1, t_compl c2)
 {
 	t_compl rez;
 
@@ -30,7 +30,7 @@ inline static t_compl	mult_complex(t_compl c1, t_compl c2)
 	return (rez);
 }
 
-t_compl	pow_complex(t_compl c1, unsigned i)
+t_compl					pow_complex(t_compl c1, unsigned i)
 {
 	t_compl		rez;
 	unsigned	j;

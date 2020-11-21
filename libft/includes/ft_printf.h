@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/01 14:31:06 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/21 01:17:56 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 22:13:16 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define ULL unsigned long long
 # define LL long long
 # define LD long double
-# define doubleS "eEfFgG"
+# define DOUBLES "eEfFgG"
 # define INTS "diouxXb"
 
 typedef struct		s_param

@@ -6,30 +6,32 @@
 /*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 00:28:52 by andru             #+#    #+#             */
-/*   Updated: 2020/11/14 15:19:12 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/21 22:21:27 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CL_PARAMETR_H
-# define CL_PARAMETR_H
-#ifdef __APPLE__
+#ifndef CL_MODULE_H
+# define CL_MODULE_H
+# ifdef __APPLE__
 
-#include <OpenCL/cl.h>
-#include <OpenCL/cl_gl.h>
-#include <OpenCL/cl_gl_ext.h>
-#include <OpenCL/cl_ext.h>
+#  include <OpenCL/cl.h>
+#  include <OpenCL/cl_gl.h>
+#  include <OpenCL/cl_gl_ext.h>
+#  include <OpenCL/cl_ext.h>
 
-#else
-# include <CL/cl.h>
-#endif
-
+# else
+#  include <CL/cl.h>
+# endif
 # include "fractol.h"
+
 # define MANDELBROT "mandelbrotProcess"
 # define JULIA "juliaProcess"
 # define BURNINGSHIP "burningShipProcess"
-typedef struct s_platform   	t_platform_info;
-typedef struct s_device     	t_device_info;
+
+typedef struct s_platform		t_platform_info;
+typedef struct s_device			t_device_info;
 typedef struct s_clcomponents	t_clcomponents;
+typedef unsigned long long		t_llu;
 
 struct							s_platform
 {
@@ -77,8 +79,5 @@ struct							s_clcomponents
 };
 
 int								cl_release_all(t_clcomponents *comp);
-int								cl_read_img(t_clcomponents *comp, t_img *img);
-int								cl_set_param(t_clcomponents *comp, t_fract fract, t_img *img, int is_extra);
-int								cl_try_init_connect(t_clcomponents *comp, char *filename, t_set set);
 
 #endif

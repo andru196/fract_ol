@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 13:09:54 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/10/29 01:01:47 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 22:14:10 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define ULL	unsigned long long
 # define LNGL	long long int
 # define UC		unsigned char
+
 typedef struct	s_list
 {
 	void			*content;
@@ -127,7 +128,8 @@ void			**get_ptr_from_array(t_array *arr);
 void			ft_lstdel_free(t_list **alst);
 size_t			ft_lstcontsize(t_list *frst);
 int				read_all_text(const char *path, char **ret);
-int				read_all_lines(const char *path, char ***ret, size_t *lines_num);
+int				read_all_lines(const char *path, char ***ret,
+												size_t *lines_num);
 size_t			ft_acontainstr(char *str, char **arr, size_t arrlenth);
 
 #endif

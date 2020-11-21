@@ -3,36 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   cl_fun2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:58:21 by andru             #+#    #+#             */
-/*   Updated: 2020/11/01 23:04:01 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 20:28:02 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-t_platform_info		*get_platform_info(cl_platform_id id)
+t_platform_info				*get_platform_info(cl_platform_id id)
 {
-    t_platform_info	*rez;
-    size_t			size;
+	t_platform_info	*rez;
+	size_t			size;
 
-    rez = malloc(sizeof(t_platform_info));
-    clGetPlatformInfo(id, CL_PLATFORM_PROFILE, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_PROFILE, size, (rez->profile = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VERSION, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VERSION, size, (rez->version = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VENDOR, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_VENDOR, size, (rez->vendor = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_EXTENSIONS, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_EXTENSIONS, size, (rez->extensions = malloc(size)), &size);
-    clGetPlatformInfo(id, CL_PLATFORM_NAME, 0, 0, &size);
-    clGetPlatformInfo(id, CL_PLATFORM_NAME, size, (rez->name = malloc(size)), &size);
-	return rez;
+	rez = malloc(sizeof(t_platform_info));
+	clGetPlatformInfo(id, CL_PLATFORM_PROFILE, 0, 0, &size);
+	clGetPlatformInfo(id, CL_PLATFORM_PROFILE, size, (rez->profile =
+														malloc(size)), &size);
+	clGetPlatformInfo(id, CL_PLATFORM_VERSION, 0, 0, &size);
+	clGetPlatformInfo(id, CL_PLATFORM_VERSION, size, (rez->version =
+														malloc(size)), &size);
+	clGetPlatformInfo(id, CL_PLATFORM_VENDOR, 0, 0, &size);
+	clGetPlatformInfo(id, CL_PLATFORM_VENDOR, size, (rez->vendor =
+														malloc(size)), &size);
+	clGetPlatformInfo(id, CL_PLATFORM_EXTENSIONS, 0, 0, &size);
+	clGetPlatformInfo(id, CL_PLATFORM_EXTENSIONS, size, (rez->extensions =
+														malloc(size)), &size);
+	clGetPlatformInfo(id, CL_PLATFORM_NAME, 0, 0, &size);
+	clGetPlatformInfo(id, CL_PLATFORM_NAME, size, (rez->name = malloc(size)),
+																		&size);
+	return (rez);
 }
 
-static inline t_device_info		*get_device_part2(t_device_info *rez, size_t size, cl_device_id id)
-{	
+static inline t_device_info	*get_device_part2(t_device_info *rez, size_t size,
+															cl_device_id id)
+{
 	clGetDeviceInfo(id, CL_DEVICE_NAME, 0, 0, &size);
 	clGetDeviceInfo(id, CL_DEVICE_NAME, size, rez->name = malloc(size), &size);
 	clGetDeviceInfo(id, CL_DEVICE_VENDOR, 0, 0, &size);
@@ -41,7 +47,7 @@ static inline t_device_info		*get_device_part2(t_device_info *rez, size_t size, 
 	clGetDeviceInfo(id, CL_DEVICE_VERSION, 0, 0, &size);
 	clGetDeviceInfo(id, CL_DEVICE_VERSION, size, rez->version = malloc(size),
 																		&size);
-	clGetDeviceInfo(id, CL_DEVICE_PROFILE, 0, 0, &size);	
+	clGetDeviceInfo(id, CL_DEVICE_PROFILE, 0, 0, &size);
 	clGetDeviceInfo(id, CL_DEVICE_PROFILE, size, rez->profile = malloc(size),
 																		&size);
 	clGetDeviceInfo(id, CL_DEVICE_EXTENSIONS, 0, 0, &size);
@@ -60,10 +66,10 @@ static inline t_device_info		*get_device_part2(t_device_info *rez, size_t size, 
 	return (rez);
 }
 
-t_device_info   *get_device_info(cl_device_id id)
+t_device_info				*get_device_info(cl_device_id id)
 {
-    t_device_info	*rez;
-    size_t			size;
+	t_device_info	*rez;
+	size_t			size;
 
 	rez = malloc(sizeof(t_device_info));
 	clGetDeviceInfo(id, CL_DEVICE_TYPE, 0, 0, &size);
@@ -86,5 +92,5 @@ t_device_info   *get_device_info(cl_device_id id)
 	clGetDeviceInfo(id, CL_DEVICE_ADDRESS_BITS, 0, 0, &size);
 	clGetDeviceInfo(id, CL_DEVICE_ADDRESS_BITS, sizeof(cl_uint),
 													&rez->address_bits, &size);
-	return get_device_part2(rez, size, id);
+	return (get_device_part2(rez, size, id));
 }

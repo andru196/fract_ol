@@ -3,45 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   process_single_thread.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 23:19:25 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 22:20:22 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 20:23:28 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static inline void	set_fractal(t_fract *f, double shift[2], t_img *img, double r)
+static inline void		set_fractal(t_fract *f, double shift[2], t_img *img,
+																	double r)
 {
 	f->min.re = (-2.0L + shift[0]) * r;
 	f->max.re = (2.0L + shift[0]) * r;
 	f->min.im = (-2.0L + shift[1]) * r;
-	f->max.im = (f->min.im + (f->max.re - f->min.re) * img->height / img->width);
+	f->max.im = (f->min.im + (f->max.re - f->min.re) * img->height /
+																img->width);
 	f->factor.re = (f->max.re - f->min.re) / (img->width - 1);
-	f->factor.im = (f->max.im - f->min.im) / (img->height- 1);
+	f->factor.im = (f->max.im - f->min.im) / (img->height - 1);
 }
 
-void	*get_formula(t_set current_set)
+void					*get_formula(t_set current_set)
 {
 	if (current_set == mandelbrot_set)
 		return (mandelbrot_formula);
 	if (current_set == burningship_set)
 		return (ship_formula);
-	else 
+	else
 		return (julia_formula);
 }
 
 /*
 ** x_y_max[4]: x, y, max_x, max_y
 */
-void	stupid_fun_single_thread(t_cont *cont, double r, double shift[2], int max_iteration)
+
+void					stupid_fun_single_thread(t_cont *cont, double r,
+											double shift[2], int max_iteration)
 {
 	t_compl			c;
 	t_fract			f;
 	int				x_y_max[4];
 	int				*data;
-	void (*formula)	(int, int *, t_compl, t_compl);
+	void			(*formula)(int, int *, t_compl, t_compl);
 
 	formula = get_formula(cont->current_set);
 	x_y_max[2] = cont->img->width;

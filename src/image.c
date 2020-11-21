@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 23:40:56 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/09/09 00:07:22 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/21 22:21:48 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_img	*new_image(void *mlx_ptr, int width, int height)
 		}
 		rez->width = width;
 		rez->height = height;
-		rez->data = (byte *)(mlx_get_data_addr(rez->img_ptr,
+		rez->data = (t_byte *)(mlx_get_data_addr(rez->img_ptr,
 			&rez->bits_per_pixel,
 			&rez->size_line,
 			&rez->endian));

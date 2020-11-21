@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 00:59:52 by andru             #+#    #+#             */
-/*   Updated: 2020/10/27 00:28:04 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 22:15:38 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int						read_all_lines(const char *path, char ***ret, size_t *lines_num)
+int						read_all_lines(const char *path, char ***ret,
+															size_t *lines_num)
 {
 	char	*buf;
 	int		fd;
@@ -35,9 +36,10 @@ int						read_all_lines(const char *path, char ***ret, size_t *lines_num)
 	return (0);
 }
 
-#define MAX_BUFF 5000
+#define MAX_BUFF 		5000
 
-inline static int 		copy_data(t_list *lst[3], size_t size[2], char buf[MAX_BUFF + 1])
+inline static int		copy_data(t_list *lst[3], size_t size[2],
+														char buf[MAX_BUFF + 1])
 {
 	if (!(lst[2] = ft_lstnew(buf, size[0])))
 	{
@@ -58,7 +60,8 @@ inline static int 		copy_data(t_list *lst[3], size_t size[2], char buf[MAX_BUFF 
 	return (1);
 }
 
-inline static int 		concat_data(char **ret, t_list *lst[3], size_t size[2])
+inline static int		concat_data(char **ret, t_list *lst[3],
+																size_t size[2])
 {
 	if (!(*ret = malloc(size[1] + 1)))
 	{
@@ -72,7 +75,7 @@ inline static int 		concat_data(char **ret, t_list *lst[3], size_t size[2])
 		size[0] += lst[0]->content_size;
 		lst[0] = lst[0]->next;
 	}
-	*((*ret)+ size[1]) = '\0';
+	*((*ret) + size[1]) = '\0';
 	ft_lstdel_free(&lst[0]);
 	return (1);
 }
@@ -89,7 +92,7 @@ int						read_all_text(const char *path, char **ret)
 	{
 		ft_bzero(lst, sizeof(t_list*) * 2);
 		size[1] = 0;
-		while((size[0] = read(fd, buf, MAX_BUFF)) > 0)
+		while ((size[0] = read(fd, buf, MAX_BUFF)) > 0)
 			if (!copy_data(lst, size, buf))
 				return (0);
 		close(fd);

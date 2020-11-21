@@ -6,22 +6,22 @@
 /*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:07:19 by andru             #+#    #+#             */
-/*   Updated: 2020/11/14 16:05:00 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/21 20:35:31 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "keys.h"
 
-void	lr_mouse_press(int button, int x, int y, t_cont *c)
+void					lr_mouse_press(int button, int x, int y, t_cont *c)
 {
 	long double mult;
 
-	mult = button == 1 ? 1.0L / 3.0 :  3.0;
+	mult = button == 1 ? 1.0L / 3.0 : 3.0;
 	if (button == LM_KEY)
 	{
-		c->shift[0] += 4 * ((double)x / WIDTH - 0.5) ; 
-		c->shift[1] += -4 * ((double)y / HEIGHT - 0.5) ;
+		c->shift[0] += 4 * ((double)x / WIDTH - 0.5);
+		c->shift[1] += -4 * ((double)y / HEIGHT - 0.5);
 	}
 	c->shift[0] /= mult;
 	c->shift[1] /= mult;
@@ -31,7 +31,7 @@ void	lr_mouse_press(int button, int x, int y, t_cont *c)
 	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
 }
 
-int	mouse_press(int button, int x, int y, void *param)
+int						mouse_press(int button, int x, int y, void *param)
 {
 	t_cont		*c;
 	long double mult;
@@ -41,11 +41,11 @@ int	mouse_press(int button, int x, int y, void *param)
 	if (button == 5 || button == 4)
 	{
 		c = param;
-		mult = button == 4 ? 15.0 / 20.0 :  20.0 / 15.0;
+		mult = button == 4 ? 15.0 / 20.0 : 20.0 / 15.0;
 		if (falg && button == 4)
 		{
-			c->shift[0] += ((double)x/WIDTH - 0.5) * 4;
-			c->shift[1] += -((double)y/HEIGHT - 0.5) * 4;
+			c->shift[0] += ((double)x / WIDTH - 0.5) * 4;
+			c->shift[1] += -((double)y / HEIGHT - 0.5) * 4;
 		}
 		c->shift[0] /= mult;
 		c->shift[1] /= mult;
@@ -61,17 +61,17 @@ int	mouse_press(int button, int x, int y, void *param)
 
 inline static t_compl	init_complex(double re, double im)
 {
-    t_compl	complex;
-    
-    complex.re = re;
-    complex.im = im;
-    return (complex);
+	t_compl	complex;
+
+	complex.re = re;
+	complex.im = im;
+	return (complex);
 }
 
-int	mouse_move(int x, int y, void *param)
+int						mouse_move(int x, int y, void *param)
 {
 	t_cont	*c;
-	
+
 	c = param;
 	if (c->current_set == julia_set)
 	{
@@ -82,7 +82,8 @@ int	mouse_move(int x, int y, void *param)
 		{
 			c->draw_fractal(c, (c->r), c->shift, 50);
 			mlx_clear_window(c->mlx_ptr, c->mlx_win);
-			mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+			mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0,
+																			0);
 		}
 		return (0);
 	}

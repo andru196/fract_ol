@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/11/01 22:15:33 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 22:24:06 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACT_OL_H
-# define FRACT_OL_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 # include "libft.h"
 # include "mlx.h"
 # include <math.h>
@@ -21,17 +21,16 @@
 # define PI 3.141592653589793238462643383279502884197169399375105820974944592
 # define DELTA 1.5L
 # define DELTA_MAXITER 100
+# include "cl_module.h"
 
 typedef struct s_cont		t_cont;
 typedef struct s_img		t_img;
 typedef struct s_line		t_line;
 typedef struct s_compl		t_compl;
-typedef unsigned char		byte;
+typedef unsigned char		t_byte;
 typedef unsigned long long	t_llu;
 typedef struct s_fractol	t_fract;
 typedef enum e_set			t_set;
-
-# include "cl_module.h"
 
 enum				e_set
 {
@@ -49,10 +48,10 @@ struct					s_compl
 struct					s_img
 {
 	void				*img_ptr;
-	int 				bits_per_pixel;
-	int 				size_line;
-	int 				endian;
-	byte				*data;
+	int					bits_per_pixel;
+	int					size_line;
+	int					endian;
+	t_byte				*data;
 	int					width;
 	int					height;
 };
@@ -74,7 +73,6 @@ struct					s_cont
 											int);
 };
 
-
 struct					s_fractol
 {
 	t_compl				k;
@@ -95,9 +93,18 @@ void					set_default(t_cont *c);
 void					stupid_fun(t_cont *img, double r, double shift[2],
 																	int mi);
 void					stupid_fun_single_thread(t_cont *cont, double r,
-											double shift[2], int max_iteration);
-void					ship_formula(int max_iteration, int *data, t_compl c, t_compl k);
-void					julia_formula(int max_iteration, int *data, t_compl c, t_compl k);
-void					mandelbrot_formula(int max_iteration, int *data, t_compl c, t_compl k);
+										double shift[2], int max_iteration);
+void					ship_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+void					julia_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+void					mandelbrot_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+
+int						cl_read_img(t_clcomponents *comp, t_img *img);
+int						cl_set_param(t_clcomponents *comp,
+									t_fract fract, t_img *img, int is_extra);
+int						cl_try_init_connect(t_clcomponents *comp,
+													char *filename, t_set set);
 
 #endif

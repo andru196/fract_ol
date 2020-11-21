@@ -6,13 +6,13 @@
 /*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 15:35:38 by sfalia-f          #+#    #+#             */
-/*   Updated: 2019/11/04 15:37:38 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/11/21 22:10:12 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
-    return (c == ' ' || c == '\t' || c == '\v');
+	return (c == ' ' || c == '\t' || c == '\v');
 }

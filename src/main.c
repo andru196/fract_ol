@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/08 23:58:11 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/01 22:03:14 by andru            ###   ########.fr       */
+/*   Updated: 2020/11/21 21:52:43 by sfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int		main(int argc, char **argv)
 {
-	t_cont	cont;
-	t_img	*img;
-	size_t	set;
+	t_cont		cont;
+	t_img		*img;
+	size_t		set;
 	char const	*setofset[] = {"mandelbrot", "julia", "ship"};
 
 	if (argc != 2 || !(set = (ft_acontainstr(argv[1], (char **)setofset, 3))))
-		return ft_printf("Usage: ./fractol [mandelbrot|ship|julia]\n") ? 1 : 1;
+		return (ft_printf("Usage: ./fractol [mandelbrot|ship|julia]\n") || 1);
 	ft_bzero(&cont, sizeof(t_cont));
 	cont.current_set = set;
 	if (!(cont.mlx_ptr = mlx_init()) ||
