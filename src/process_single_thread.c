@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_single_thread.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/10 23:19:25 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/21 20:23:28 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/12/09 01:51:54 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void					*get_formula(t_set current_set)
 		return (mandelbrot_formula);
 	if (current_set == burningship_set)
 		return (ship_formula);
+	if (current_set == mandelbar)
+		return (mandelbar_formula);
+	if (current_set == celtic_mandelbrot)
+		return (cmandelbrot_formula);
+	if (current_set == celtic_mandelbar)
+		return (cmandelbar_formula);
+	if (current_set == celtic_perpendicular)
+		return (cperpendicular_formula);
+	if (current_set == perpendicular_mandelbrot)
+		return (pmandelbrot_formula);
+	if (current_set == perpendicular_burningship)
+		return (pship_formula);
 	else
 		return (julia_formula);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 23:10:33 by andru             #+#    #+#             */
-/*   Updated: 2020/11/21 22:12:44 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/12/09 01:29:51 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #  define NUM_5	22
 #  define NUM_6	23
 #  define NUM_7	24
+#  define NUM_8	25
+#  define NUM_9	26
 #  define NUM_ESC	53
 #  define NUMPAD_6	88
 #  define NUMPAD_5	87
@@ -45,8 +47,10 @@
 #  define NUM_3 51
 #  define NUM_4 52
 #  define NUM_5 53
-#  define NUM_6 45
+#  define NUM_6 54
 #  define NUM_7 55
+#  define NUM_8 56
+#  define NUM_9 57
 #  define NUM_ESC	65307
 #  define NUMPAD_6	88
 #  define NUMPAD_5	87

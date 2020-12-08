@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 00:59:52 by andru             #+#    #+#             */
-/*   Updated: 2020/12/09 00:33:12 by andru            ###   ########.fr       */
+/*   Updated: 2020/12/09 01:26:11 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ inline static int		concat_data(char **ret, t_list *lst[3],
 	}
 	*((*ret) + size[1]) = '\0';
 	ft_lstdel_free(&lst[1]);
-	return (copy_data);
+	return (1);
 }
 
 int						read_all_text(const char *path, char **ret)

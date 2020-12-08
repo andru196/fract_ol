@@ -6,7 +6,7 @@
 #    By: andru <andru@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/12/07 22:42:32 by andru            ###   ########.fr        #
+#    Updated: 2020/12/09 01:14:55 by andru            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ FILES	=			main.c\
 					fractol_default.c\
 					process_multy_thread.c\
 					process_single_thread.c\
-					formulas.c
+					formulas.c formulas2.c formulas3.c
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang

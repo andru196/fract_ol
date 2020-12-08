@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   events_keyboard.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/11/21 20:32:16 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/12/09 01:36:32 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "events.h"
 #include "keys.h"
-
-static void			ext(t_cont *c)
-{
-	free_cont(c);
-	ft_putendl("Bye, bye.....");
-	exit(0);
-}
 
 static inline int	deltas(t_cont *c, int keycode)
 {
@@ -46,18 +39,41 @@ static inline int	deltas(t_cont *c, int keycode)
 		keycode == NUM_MINS || keycode == 45);
 }
 
+static inline t_set	choose_set(int keycode)
+{
+	if (keycode == NUM_1)
+		return (mandelbrot_set);
+	else if (keycode == NUM_2)
+		return (burningship_set);
+	else if (keycode == NUM_3)
+		return (julia_set);
+	else if (keycode == NUM_4)
+		return (mandelbar);
+	else if (keycode == NUM_5)
+		return (celtic_mandelbrot);
+	else if (keycode == NUM_6)
+		return (celtic_mandelbar);
+	else if (keycode == NUM_7)
+		return (celtic_perpendicular);
+	else if (keycode == NUM_8)
+		return (perpendicular_mandelbrot);
+	else
+		return (perpendicular_burningship);
+}
+
 static inline int	change_set(t_cont *c, int keycode)
 {
-	if (keycode == NUM_1 || keycode == NUM_2 || keycode == NUM_3)
+	t_set curent;
+
+	if (keycode == NUM_1 || keycode == NUM_2 || keycode == NUM_3
+		|| keycode == NUM_4 || keycode == NUM_5 || keycode == NUM_6
+		|| keycode == NUM_7 || keycode == NUM_8 || keycode == NUM_9)
 	{
 		if (c->draw_fractal == stupid_fun)
 			cl_release_all(&c->clcomponets);
-		if (keycode == NUM_1 && c->current_set != mandelbrot_set)
-			c->current_set = mandelbrot_set;
-		else if (keycode == NUM_2 && c->current_set != burningship_set)
-			c->current_set = burningship_set;
-		else if (keycode == NUM_3 && c->current_set != julia_set)
-			c->current_set = julia_set;
+		curent = choose_set(keycode);
+		if (c->current_set != curent)
+			c->current_set = curent;
 		set_default(c);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		c->draw_fractal(c, c->r, c->shift, c->maxiter);
@@ -88,7 +104,11 @@ int					key_press(int keycode, void *param)
 
 	c = (t_cont*)param;
 	if (NUM_Q == keycode || keycode == NUM_ESC)
-		ext(c);
+	{
+		free_cont(c);
+		ft_putendl("Bye, bye.....");
+		exit(0);
+	}
 	if (deltas(c, keycode))
 		;
 	else if (change_set(c, keycode))

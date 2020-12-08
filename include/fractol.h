@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/11/21 22:24:06 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/12/09 01:18:27 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ enum				e_set
 {
 	mandelbrot_set = 1,
 	julia_set = 2,
-	burningship_set = 3
+	burningship_set = 3,
+	mandelbar = 4,
+	celtic_mandelbrot = 5,
+	celtic_mandelbar = 6,
+	celtic_perpendicular = 7,
+	perpendicular_mandelbrot = 8,
+	perpendicular_burningship = 9
 };
 
 struct					s_compl
@@ -100,11 +106,22 @@ void					julia_formula(int max_iteration, int *data,
 														t_compl c, t_compl k);
 void					mandelbrot_formula(int max_iteration, int *data,
 														t_compl c, t_compl k);
+void					pship_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
 
 int						cl_read_img(t_clcomponents *comp, t_img *img);
 int						cl_set_param(t_clcomponents *comp,
 									t_fract fract, t_img *img, int is_extra);
 int						cl_try_init_connect(t_clcomponents *comp,
 													char *filename, t_set set);
-
+void					pmandelbrot_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+void					cperpendicular_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+void					cmandelbar_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+void					cmandelbrot_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
+void					mandelbar_formula(int max_iteration, int *data,
+														t_compl c, t_compl k);
 #endif
