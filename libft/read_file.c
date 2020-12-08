@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 00:59:52 by andru             #+#    #+#             */
-/*   Updated: 2020/11/21 22:15:38 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/12/09 00:33:12 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ inline static int		concat_data(char **ret, t_list *lst[3],
 		return (0);
 	}
 	size[0] = 0;
+	lst[1] = lst[0];
 	while (lst[0])
 	{
 		ft_memcpy(*ret + size[0], lst[0]->content, lst[0]->content_size);
@@ -76,8 +77,8 @@ inline static int		concat_data(char **ret, t_list *lst[3],
 		lst[0] = lst[0]->next;
 	}
 	*((*ret) + size[1]) = '\0';
-	ft_lstdel_free(&lst[0]);
-	return (1);
+	ft_lstdel_free(&lst[1]);
+	return (copy_data);
 }
 
 int						read_all_text(const char *path, char **ret)

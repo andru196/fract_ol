@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+         #
+#    By: andru <andru@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/11/21 20:02:09 by sfalia-f         ###   ########.fr        #
+#    Updated: 2020/12/07 22:42:32 by andru            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,24 +28,30 @@ FILES	=			main.c\
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang
-FLAGS			=	-g#-Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror
 LIBRARY			=	./libft/
 LIBFT			=	$(LIBRARY)libft.a
 HEADERS			=	include/ $(LIBRARY)includes
 MINILIBDIR		=	minilib/
 INCLUDES		=	-I include/ -I $(LIBRARY)includes -I $(MINILIBDIR)
-ifeq ($(UNAME), Darwin)
-	LIBS = -lmlx -framework OpenGL -framework opencl -framework Appkit
+MINILIBX		= 	minilib/libmlx.a
+
+ifeq ($(UNAME), Linux)
+	LIBS = -lmlx -lGL -lXext -lX11 -lm -lOpenCL
 else
-	LIBS = -lGL -lXext -lX11 -lm -lOpenCL
+	LIBS = -lmlx -framework OpenGL -framework opencl -framework Appkit
 endif
-all: $(LIBFT) $(NAME)
+
+all: $(LIBFT) $(MINILIBX) $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC)  $(FLAGS) -o $(NAME) $(OBJ) -L $(LIBRARY) -lft -L $(MINILIBDIR) -lmlx  $(LIBS)
+	$(CC)  $(FLAGS) -o $(NAME) $(OBJ) -L $(LIBRARY) -lft -L $(MINILIBDIR)  $(LIBS)
 
 $(LIBFT):
 	make -C $(LIBRARY)
+
+$(MINILIBX):
+	@make -C minilib/
 
 %.o : %.c $(HEADERS)
 	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
