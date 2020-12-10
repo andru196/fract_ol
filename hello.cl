@@ -97,7 +97,7 @@ __kernel void burningShipProcess(__global unsigned int* iterations,
 	{
 		double x2 = x * x;
 		double y2 = y * y;
-		double xn = x2 - y2 + cx;
+		double xn = x2 - y2 - cx;
 		y = -2 * dabs_my(x * y) + cy;
 		x = xn;
 		if (x2 + y2 > 4.0)

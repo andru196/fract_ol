@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 00:40:44 by sfalia-f          #+#    #+#             */
-/*   Updated: 2020/12/09 01:36:32 by andru            ###   ########.fr       */
+/*   Updated: 2020/12/10 21:08:47 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline int	deltas(t_cont *c, int keycode)
 	{
 		c->draw_fractal(c, c->r, c->shift, c->maxiter);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
-		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		put_fractal(c);
 	}
 	return (keycode == ARROW_L || keycode == ARROW_U || keycode == ARROW_R ||
 		keycode == ARROW_D || keycode == NUM_PLUS || keycode == 61 ||
@@ -77,7 +77,7 @@ static inline int	change_set(t_cont *c, int keycode)
 		set_default(c);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
 		c->draw_fractal(c, c->r, c->shift, c->maxiter);
-		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		put_fractal(c);
 		return (1);
 	}
 	return (0);
@@ -92,7 +92,7 @@ inline static int	change_mod(t_cont *c, int keycode)
 		if (c->draw_fractal == stupid_fun_single_thread)
 			cl_release_all(&c->clcomponets);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
-		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		put_fractal(c);
 		return (1);
 	}
 	return (0);

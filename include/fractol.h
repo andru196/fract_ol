@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 17:06:37 by ycorrupt          #+#    #+#             */
-/*   Updated: 2020/12/09 01:18:27 by andru            ###   ########.fr       */
+/*   Updated: 2020/12/10 21:07:53 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,6 @@ void					cmandelbrot_formula(int max_iteration, int *data,
 														t_compl c, t_compl k);
 void					mandelbar_formula(int max_iteration, int *data,
 														t_compl c, t_compl k);
+int						put_fractal(t_cont *c);
+
 #endif

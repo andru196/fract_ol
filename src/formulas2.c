@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:54:13 by andru             #+#    #+#             */
-/*   Updated: 2020/12/09 01:54:51 by andru            ###   ########.fr       */
+/*   Updated: 2020/12/10 20:56:20 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void					cmandelbrot_formula(int max_iteration, int *data,
 	while (iteration < max_iteration && (z.re * z.re + z.im * z.im) <= 4.0L)
 	{
 		z = init_complex(
-			fabs(z.re * z.re - z.im * z.im) + c.re,
-			2.0L * z.re * z.im + c.im);
+			z.re * z.re - z.im * z.im + (c.re),
+			-2.0L * z.re * fabs(z.im) * z.im + c.im);
 		iteration++;
 	}
 	*data = get_color1(iteration, max_iteration);
@@ -85,8 +85,8 @@ void					cmandelbar_formula(int max_iteration, int *data,
 	while (iteration < max_iteration && (z.re * z.re + z.im * z.im) <= 4.0L)
 	{
 		z = init_complex(
-			fabs(z.re * z.re - z.im * z.im) + c.re,
-			-2.0L * z.re * z.im + c.im);
+			z.re * z.re - z.im * z.im + fabs(c.re),
+			-2.0L * z.re * fabs(z.im) * z.im - c.im);
 		iteration++;
 	}
 	*data = get_color1(iteration, max_iteration);

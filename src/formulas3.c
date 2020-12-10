@@ -6,7 +6,7 @@
 /*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 21:54:13 by andru             #+#    #+#             */
-/*   Updated: 2020/12/09 02:20:15 by andru            ###   ########.fr       */
+/*   Updated: 2020/12/10 21:32:00 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ inline static int		get_color1(int iter, int maxiter)
 {
 	double			t;
 	static short	back = 1;
-	
+
 	if (iter != maxiter)
 	{
 		t = (double)iter / maxiter;

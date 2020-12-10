@@ -6,7 +6,7 @@
 #    By: andru <andru@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/12/09 01:14:55 by andru            ###   ########.fr        #
+#    Updated: 2020/12/10 21:56:16 by andru            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,16 @@ FILES	=			main.c\
 					free_cont.c\
 					events_keyboard.c\
 					events_mouse.c\
-					cl_fun.c cl_fun2.c\
+					cl_fun2.c\
 					fractol_default.c\
 					process_multy_thread.c\
 					process_single_thread.c\
 					formulas.c formulas2.c formulas3.c
+ifeq ($(UNAME), Linux)
+	FILES += cl_fun.c
+else
+	FILES += cl_funMac.c
+endif
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
 CC				=	clang

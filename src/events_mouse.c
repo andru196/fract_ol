@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_mouse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfalia-f <sfalia-f@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andru <andru@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:07:19 by andru             #+#    #+#             */
-/*   Updated: 2020/11/21 20:35:31 by sfalia-f         ###   ########.fr       */
+/*   Updated: 2020/12/10 21:09:15 by andru            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void					lr_mouse_press(int button, int x, int y, t_cont *c)
 	c->r *= mult;
 	c->draw_fractal(c, (c->r), c->shift, c->maxiter);
 	mlx_clear_window(c->mlx_ptr, c->mlx_win);
-	mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+	put_fractal(c);
 }
 
 int						mouse_press(int button, int x, int y, void *param)
@@ -52,7 +52,7 @@ int						mouse_press(int button, int x, int y, void *param)
 		c->r *= mult;
 		c->draw_fractal(c, (c->r), c->shift, c->maxiter);
 		mlx_clear_window(c->mlx_ptr, c->mlx_win);
-		mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0, 0);
+		put_fractal(c);
 	}
 	else if (button == LM_KEY || button == RM_KEY)
 		lr_mouse_press(button, x, y, param);
@@ -82,8 +82,7 @@ int						mouse_move(int x, int y, void *param)
 		{
 			c->draw_fractal(c, (c->r), c->shift, 50);
 			mlx_clear_window(c->mlx_ptr, c->mlx_win);
-			mlx_put_image_to_window(c->mlx_ptr, c->mlx_win, c->img->img_ptr, 0,
-																			0);
+			put_fractal(c);
 		}
 		return (0);
 	}
