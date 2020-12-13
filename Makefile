@@ -6,7 +6,7 @@
 #    By: andru <andru@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/07 17:08:37 by sfalia-f          #+#    #+#              #
-#    Updated: 2020/12/10 21:56:16 by andru            ###   ########.fr        #
+#    Updated: 2020/12/13 15:23:34 by sfalia-f         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ FILES	=			main.c\
 ifeq ($(UNAME), Linux)
 	FILES += cl_fun.c
 else
-	FILES += cl_funMac.c
+	FILES += cl_funmac.c
 endif
 SRCS			=	$(addprefix $(DIR), $(FILES))
 OBJ				=	$(patsubst %.c, %.o, $(SRCS))
